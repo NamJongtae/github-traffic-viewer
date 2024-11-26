@@ -1,0 +1,12 @@
+{
+  "manifest_version": 3,
+  "name": "GitHub Traffic Viewer",
+  "version": "1.0",
+  "description": "Displays traffic data for a GitHub repository",
+  "permissions": ["storage", "activeTab"],
+  "host_permissions": ["https://api.github.com/*"],
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": "src/public/icons/icon.png"
+  }
+}
