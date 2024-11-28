@@ -18,4 +18,47 @@ export const mainMenu = `
         <button class="docs-btn">Go To Docs</button>
       </div>
       <p class="source-link">Data provided by <a href="https://api.github.com" target="_blank">GitHub API</a></p>
-    </div>`;
+    </div>
+`;
+
+export const getTrafficForm = `
+    <form class="get-traffic-form">
+      <label for="github-username">GitHub Username</label>
+      <div class="input-group">
+        <input type="text" id="github-username" required />
+        <button type="button" class="clear-btn" data-input="#github-username">
+          <img src="src/public/icons/x_icon.png" alt="Clear" />
+        </button>
+      </div>
+      <label for="github-token">AccessToken</label>
+      <div class="input-group">
+        <input type="password" id="github-token" required />
+        <button type="button" class="clear-btn" data-input="#github-token">
+          <img src="src/public/icons/x_icon.png" alt="clear" />
+        </button>
+      </div>
+      <label for="repo-name">Repository Name</label>
+      <div class="input-group">
+        <input type="text" id="repo-name" required />
+        <button type="button" class="clear-btn" data-input="#repo-name">
+          <img src="src/public/icons/x_icon.png" alt="reset" />
+        </button>
+      </div>
+      <button type="submit" class="submit-btn">Get Traffic</button>
+      <button type="button" class="back-btn">Back</button>
+    </form>
+`;
+
+export const loadTrafficForm = `
+  <form class="load-traffic-form">
+    <label for="repo-name">Repository Name</label>
+    <div class="input-group">
+      <input type="text" id="repo-name" required />
+      <button type="button" class="clear-btn" data-input="#repo-name">
+        <img src="src/public/icons/x_icon.png" alt="Clear" />
+      </button>
+    </div>
+    <button type="submit" class="load-btn">Load Storage Data</button>
+    <button type="button" class="back-btn">Back</button>
+  </form>
+`;
