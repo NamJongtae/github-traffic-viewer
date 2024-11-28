@@ -52,8 +52,79 @@ button:hover {
   margin-bottom: 10px;
   font-size: 14px;
 }
+
 .desc p:last-child {
   text-decoration: underline;
   text-underline-offset: 2;
   color: salmon;
+}
+
+.get-traffic-form,
+.load-traffic-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.get-traffic-form label,
+.load-traffic-form label {
+  margin: 10px 0 5px;
+}
+
+.get-traffic-form input,
+.load-traffic-form input {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.input-group {
+  position: relative;
+  margin-bottom: 10px;
+}
+
+.input-group input {
+  width: 100%;
+  padding-right: 2.5em;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+.clear-btn {
+  display: none;
+}
+
+.input-group input:not(:placeholder-shown) + .clear-btn {
+  display: block;
+}
+
+.input-group .clear-btn {
+  position: absolute;
+  right: 0.5em;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  width: 20px;
+  height: 20px;
+}
+
+.input-group .clear-btn img {
+  width: 11px;
+  height: 11px;
+  pointer-events: none;
+}
+
+.submit-btn{
+  margin: 10px 0;
+}
+
+.load-btn {
+  margin-bottom: 10px;
+}
+
+.submit-btn:hover,
+.load-btn:hover {
+  background-color: #0056b3;
 }
