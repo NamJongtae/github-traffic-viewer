@@ -1,6 +1,6 @@
 import { LocalStorageModel } from "../model/LocalStorageModel";
 import { TrafficDataModel } from "../model/TrafficDataModel";
-import { $, generateFormErrorMsg } from "../utils";
+import { $, generateFormErrorMsg, validateDates } from "../utils";
 import { View } from "../view/View";
 
 export class Controller {
@@ -77,6 +77,7 @@ export class Controller {
     const githubToken = ($("#github-token") as HTMLInputElement).value;
     const repoName = ($("#repo-name") as HTMLInputElement).value;
 
+    this.view.removeErrorMsg();
     this.view.activeFormLoading();
 
     try {
@@ -92,10 +93,15 @@ export class Controller {
         responseData.views
       );
 
+      this.localStorageModel.saveToLocalStorage(repoName, mergedData);
+
       this.trafficDataModel.setTrafficData(mergedData);
 
       // Result  element 렌더링
-      //...
+      this.view.renderResult(mergedData, () => this.bindResultEvents());
+      const { views, visitors } =
+        this.trafficDataModel.calculateTotalTraffic(mergedData);
+      this.view.updateTrafficSummary(views, visitors);
     } catch (error: unknown) {
       if (error instanceof Error) {
         const message = generateFormErrorMsg(error);
@@ -163,6 +169,8 @@ export class Controller {
     const repoName = ($("#repo-name") as HTMLInputElement).value;
     const data = await this.localStorageModel.loadFromLocalStorage(repoName);
 
+    this.view.removeErrorMsg();
+
     if (data.length === 0) {
       this.view.renderErrorMsg(
         ".back-btn",
@@ -170,5 +178,66 @@ export class Controller {
       );
       return;
     }
+
+    // 전역 데이터에 불러온 데이터 저장
+    this.trafficDataModel.setTrafficData(data);
+
+    // 결과 렌더링
+    this.view.renderResult(data, () => this.bindResultEvents());
+
+    const { views, visitors } =
+      this.trafficDataModel.calculateTotalTraffic(data);
+    this.view.updateTrafficSummary(views, visitors);
+  }
+
+  bindResultEvents() {
+    const startDateInput = $("#start-date") as HTMLInputElement;
+    this.view.bindEvent(startDateInput, "input", () =>
+      this.handleFilterChange()
+    );
+
+    const endDateInput = $("#end-date") as HTMLInputElement;
+    this.view.bindEvent(endDateInput, "input", () => this.handleFilterChange());
+    const today = new Date().toISOString().split("T")[0];
+    endDateInput.setAttribute("max", today);
+
+    const sortOrderSelect = $("#sort-order") as HTMLSelectElement;
+    this.view.bindEvent(sortOrderSelect, "input", () =>
+      this.handleFilterChange()
+    );
+  }
+
+  private handleFilterChange() {
+    const startDate = ($("#start-date") as HTMLInputElement).value;
+    const endDate = ($("#end-date") as HTMLInputElement).value;
+    const sortOrder = ($("#sort-order") as HTMLSelectElement).value;
+
+    this.view.removeErrorMsg("filter");
+    this.view.removeNoDataMessage();
+
+    const isValidDate = validateDates(startDate, endDate);
+
+    if (!isValidDate) {
+      this.view.renderErrorMsg(
+        ".filters",
+        "Start Date cannot be later than End Date.",
+        "filter"
+      );
+      this.view.clearTrafficSummary();
+      this.view.removeTrafficTable();
+      return;
+    }
+
+    const filteredAndSortedData =
+      this.trafficDataModel.getFilteredAndSortedData(
+        startDate,
+        endDate,
+        sortOrder
+      );
+    const { views, visitors } = this.trafficDataModel.calculateTotalTraffic(
+      filteredAndSortedData
+    );
+
+    this.view.updateFilteredView(filteredAndSortedData, views, visitors);
   }
 }
