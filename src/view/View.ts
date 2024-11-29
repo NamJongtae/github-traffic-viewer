@@ -1,16 +1,28 @@
-import { getTrafficForm, layout, loadTrafficForm, mainMenu } from "../template";
-import { $ } from "../utils";
-
-const rootEl = document.querySelector("#app")!;
+import {
+  getTrafficForm,
+  layout,
+  loadTrafficForm,
+  mainMenu,
+  result,
+  trafficTable,
+} from "../template";
+import { TrafficData } from "../types/trafficDataTypes";
+import { $, formatDate } from "../utils";
 
 export class View {
+  private rootEl: HTMLDivElement;
+
+  constructor() {
+    this.rootEl = document.querySelector("#app")!;
+  }
+
   init(bindEvents: () => void) {
     this.renderLayout();
     this.renderMainMenu(() => bindEvents());
   }
 
   renderLayout() {
-    rootEl.innerHTML = layout;
+    this.rootEl.innerHTML = layout;
   }
 
   renderMainMenu(bindEvents: () => void) {
@@ -30,21 +42,91 @@ export class View {
     bindEvents();
   }
 
-  renderErrorMsg(targetSelector: string, message: string) {
+  renderResult(data: TrafficData, bindEvents: () => void) {
+    this.removeElement(".result");
+    this.rootEl.insertAdjacentHTML("beforeend", result);
+    this.renderTrafficTable(data);
+    bindEvents();
+  }
+
+  renderTrafficTable(data: TrafficData) {
+    this.removeElement(".traffic-table");
+    const hasData = data && data.length > 0;
+
+    if (!hasData) {
+      this.renderNoDataMessage();
+      return;
+    }
+
+    this.removeElement(".no-data");
+    $(".filters")!.insertAdjacentHTML("afterend", trafficTable);
+    this.updateTableBody(data);
+  }
+
+  removeTrafficTable() {
+    this.removeElement(".traffic-table");
+  }
+
+  updateTableBody(data: TrafficData) {
+    const tableBody = $(".traffic-body")!;
+    data.forEach((view) => {
+      const row = document.createElement("tr");
+      row.innerHTML = `
+        <td>${formatDate(view.timestamp)}</td>
+        <td>${view.count}</td>
+        <td>${view.uniques}</td>
+      `;
+      tableBody.appendChild(row);
+    });
+  }
+
+  renderNoDataMessage() {
+    $(".filters")!.insertAdjacentHTML(
+      "afterend",
+      `<div class="no-data">No data available.</div>`
+    );
+  }
+
+  removeNoDataMessage() {
+    this.removeElement(".no-data");
+  }
+
+  clearTrafficSummary() {
+    $(".views")!.textContent = "0";
+    $(".visitors")!.textContent = "0";
+  }
+
+  updateTrafficSummary(views: number, visitors: number) {
+    $(".views")!.textContent = views.toString();
+    $(".visitors")!.textContent = visitors.toString();
+  }
+
+  updateFilteredView(data: TrafficData, views: number, visitors: number) {
+    this.updateTrafficSummary(views, visitors);
+    this.renderTrafficTable(data);
+  }
+
+  renderErrorMsg(
+    targetSelector: string,
+    message: string,
+    type: "form" | "filter" = "form"
+  ) {
     const errorEl = $(".error-msg") as HTMLParagraphElement;
     if (errorEl) {
       errorEl.innerText = message;
     } else {
       $(targetSelector)!.insertAdjacentHTML(
         "afterend",
-        `<p class="error-msg"}>${message}</p>`
+        `<p class=${
+          type === "filter" ? "filter-error-msg" : "error-msg"
+        }>${message}</p>`
       );
     }
   }
 
-  clearErrorMsg(type: "form" | "filter" = "form") {
+  removeErrorMsg(type: "form" | "filter" = "form") {
     this.removeElement(
-      `${type === "filter" ? ".filter-error-msg" : "error-msg"}`
+      `${type === "filter" ? ".filter-error-msg" : ".error-msg"}`
     );
   }
 
