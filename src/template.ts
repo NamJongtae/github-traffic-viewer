@@ -62,3 +62,44 @@ export const loadTrafficForm = `
     <button type="button" class="back-btn">Back</button>
   </form>
 `;
+
+export const trafficTable = `
+  <table class="traffic-table">
+    <thead>
+      <tr>
+        <th>Date</th>
+        <th>Total Views</th>
+        <th>Unique Visitors</th>
+      </tr>
+    </thead>
+    <tbody class="traffic-body"></tbody>
+  </table>
+`;
+
+export const result = `
+  <div class="result">
+    <h2 class="traffic-data-title">Traffic Data</h2>
+    <p class="total-views">Total Views : <span class="views"></span></p>
+    <p class="total-visitors">
+      Total Visitors : <span class="visitors"></span>
+    </p>
+    <div class="filters">
+      <div class="date-filte">
+        <label class="a11y" for="start-date">Start Date</label>
+        <input type="date" id="start-date" class="date-input" />
+        <span class="separator">~</span>
+        <label class="a11y" for="end-date">End Date</label>
+        <input type="date" id="end-date" class="date-input" />
+      </div>
+      <div class="sort-filter">
+        <label class="a11y" for="sort-order">Sort by</label>
+        <select id="sort-order">
+          <option value="asc">Oldest</option>
+          <option value="desc">Newest</option>
+          <option value="views">Views</option>
+          <option value="visitors">Visitors</option>
+        </select>
+      </div>
+    </div>
+  </div>
+`;
