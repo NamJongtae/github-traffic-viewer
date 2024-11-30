@@ -1,6 +1,12 @@
 import { LocalStorageModel } from "../model/LocalStorageModel";
 import { TrafficDataModel } from "../model/TrafficDataModel";
-import { $, generateFormErrorMsg, validateDates } from "../utils";
+import {
+  $,
+  downloadExcel,
+  downloadJson,
+  generateFormErrorMsg,
+  validateDates,
+} from "../utils";
 import { View } from "../view/View";
 
 export class Controller {
@@ -205,6 +211,13 @@ export class Controller {
     this.view.bindEvent(sortOrderSelect, "input", () =>
       this.handleFilterChange()
     );
+
+    const data = this.trafficDataModel.getTrafficData();
+    const downloadJsonBtn = $(".download-json-btn") as HTMLButtonElement;
+    this.view.bindEvent(downloadJsonBtn, "click", () => downloadJson(data));
+
+    const downloadExcelBtn = $(".download-excel-btn") as HTMLButtonElement;
+    this.view.bindEvent(downloadExcelBtn, "click", () => downloadExcel(data));
   }
 
   private handleFilterChange() {
