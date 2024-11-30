@@ -101,5 +101,10 @@ export const result = `
         </select>
       </div>
     </div>
+
+    <div class="download-btn-group">
+      <button class="download-json-btn">Download Data As JSON</button>
+      <button class="download-excel-btn">Download Data As Excel</button>
+    </div>
   </div>
 `;
