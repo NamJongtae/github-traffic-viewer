@@ -45,8 +45,8 @@ export function downloadJson(data: TrafficData) {
 
   const transformData = data.map((item) => ({
     Date: item.timestamp,
-    views: item.count,
-    visitors: item.uniques,
+    Views: item.count,
+    "Unique visitors": item.uniques,
   }));
 
   const blob = new Blob([JSON.stringify(transformData, null, 2)], {
@@ -68,8 +68,8 @@ export function downloadExcel(data: TrafficData) {
 
   const transformData = data.map((item) => ({
     Date: item.timestamp,
-    views: item.count,
-    visitors: item.uniques,
+    Views: item.count,
+    "Unique visitors": item.uniques,
   }));
 
   const worksheet = XLSX.utils.json_to_sheet(transformData);
