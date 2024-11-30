@@ -220,6 +220,13 @@ button:hover {
   font-weight: bold;
 }
 
+.download-btn-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 10px 0;
+}
+
 .a11y {
   clip: rect(1px, 1px, 1px, 1px);
   clip-path: inset(50%);
