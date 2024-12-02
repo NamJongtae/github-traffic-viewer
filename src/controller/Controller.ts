@@ -99,9 +99,15 @@ export class Controller {
         responseData.views
       );
 
-      this.localStorageModel.saveToLocalStorage(repoName, mergedData);
-
       this.trafficDataModel.setTrafficData(mergedData);
+
+      for (const view of responseData.views) {
+        this.localStorageModel.saveToLocalStorage(
+          repoName,
+          view.timestamp,
+          view
+        ); // 날짜별 데이터 저장
+      }
 
       // Result  element 렌더링
       this.view.renderResult(mergedData, () => this.bindResultEvents());
@@ -173,7 +179,7 @@ export class Controller {
     event.preventDefault();
 
     const repoName = ($("#repo-name") as HTMLInputElement).value;
-    const data = await this.localStorageModel.loadFromLocalStorage(repoName);
+    const data = await this.localStorageModel.loadAllDataFromLocalStorage(repoName);
 
     this.view.removeErrorMsg();
 
