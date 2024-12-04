@@ -8,7 +8,25 @@ export class ResultView extends BaseView {
     this.removeElement(".result");
     this.rootEl.insertAdjacentHTML("beforeend", result);
     this.renderTrafficTable(data);
+    this.updateLastUpdated();
     bindEvents();
+  }
+
+  private updateLastUpdated() {
+    const repoSelector = $("#repo-selector");
+    const lastUpdatedTimeEl = $(".last-updated-time") as HTMLTimeElement;
+
+    if (repoSelector instanceof HTMLSelectElement) {
+      const selectedOption = repoSelector.options[repoSelector.selectedIndex];
+      const lastUpdatedTime = selectedOption.dataset.lastupdated || "0";
+
+      lastUpdatedTimeEl.textContent = formatDate(lastUpdatedTime);
+      lastUpdatedTimeEl.dateTime = lastUpdatedTime;
+    } else {
+      const now = new Date().toISOString();
+      lastUpdatedTimeEl.textContent = formatDate(now);
+      lastUpdatedTimeEl.dateTime = now;
+    }
   }
 
   renderTrafficTable(data: TrafficData[]) {
