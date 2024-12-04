@@ -1,32 +1,37 @@
+import { EventBus } from "../EventBus";
 import { LocalStorageModel } from "../model/LocalStorageModel";
 import { TrafficDataModel } from "../model/TrafficDataModel";
+import { EventMap } from "../types/EventMap";
 import { $, generateFormErrorMsg } from "../utils";
 import { FormView } from "../view/FormView";
-import { MainMenuController } from './MainMenuController';
-import { ResultController } from "./ResultController";
 
 export class FormController {
-  private mainMenuController!: MainMenuController; // 지연 초기화
-
   constructor(
     private trafficDataModel: TrafficDataModel,
     private localStorageModel: LocalStorageModel,
     private formView: FormView,
-    private resultController: ResultController
-  ) {}
-
-  setDependency(mainMenuController: MainMenuController) {
-    this.mainMenuController = mainMenuController;
+    private eventBus: EventBus<EventMap>
+  ) {
+    this.initialized();
   }
 
-  handleGetTrafficClick() {
-    this.formView.renderTrafficForm(() => this.bindTrafficFormEvents());
+  private initialized() {
+    this.eventBus.subscribe("initializeGetTrafficForm", () => {
+      this.initializeGetTrafficForm();
+    });
+    this.eventBus.subscribe("initializeLoadTrafficForm", () => {
+      this.initializeLoadTrafficForm();
+    });
+  }
+
+  initializeGetTrafficForm() {
+    this.formView.renderGetTrafficForm(() => this.bindTrafficFormEvents());
   }
 
   private bindTrafficFormEvents() {
     const form = $(".get-traffic-form") as HTMLFormElement;
     this.formView.bindEvent(form, "submit", (e) =>
-      this.handleTrafficFormSubmit(e)
+      this.handleGetTrafficFormSubmit(e)
     );
 
     const inputs = document.querySelectorAll(
@@ -42,7 +47,7 @@ export class FormController {
 
     inputs.forEach((input) => {
       const clearBtn = input.nextElementSibling as HTMLButtonElement;
-      this.toggleClearButton(input, clearBtn);
+      this.formView.toggleClearButton(input, clearBtn);
     });
 
     const backBtn = $(".back-btn") as HTMLButtonElement;
@@ -51,7 +56,7 @@ export class FormController {
     );
   }
 
-  private async handleTrafficFormSubmit(event: Event) {
+  private async handleGetTrafficFormSubmit(event: Event) {
     event.preventDefault();
 
     const githubId = ($("#github-username") as HTMLInputElement).value;
@@ -73,12 +78,16 @@ export class FormController {
       );
 
       this.trafficDataModel.setTrafficData(mergedData);
-      // 2. 날짜별 데이터를 로컬스토리지에 저장
+ 
       for (const view of responseData.views) {
-        this.localStorageModel.saveToLocalStorage(repoName, view.timestamp, view); // 날짜별 데이터 저장
+        this.localStorageModel.saveToLocalStorage(
+          repoName,
+          view.timestamp,
+          view
+        );
       }
 
-      this.resultController.renderResult(mergedData);
+      this.eventBus.publish("initializeResult", mergedData);
     } catch (error: unknown) {
       if (error instanceof Error) {
         const message = generateFormErrorMsg(error);
@@ -89,13 +98,11 @@ export class FormController {
     }
   }
 
-  handleLoadTrafficClick() {
-    this.formView.renderLoadStorageTrafficForm(() =>
-      this.bindLoadStorageTrafficFormEvents()
-    );
+  private initializeLoadTrafficForm() {
+    this.formView.renderLoadTrafficForm(() => this.bindLoadTrafficFormEvents());
   }
 
-  private bindLoadStorageTrafficFormEvents() {
+  private bindLoadTrafficFormEvents() {
     const form = $(".load-traffic-form") as HTMLFormElement;
     this.formView.bindEvent(form, "submit", (e) =>
       this.handleLoadFormSubmit(e)
@@ -103,7 +110,7 @@ export class FormController {
 
     const input = $(".input-group input") as HTMLInputElement;
     const clearBtn = input.nextElementSibling as HTMLButtonElement;
-    this.toggleClearButton(input, clearBtn);
+    this.formView.toggleClearButton(input, clearBtn);
 
     this.formView.bindEvent(input, "input", () => {
       this.bindInputClearEvents(input, clearBtn);
@@ -119,7 +126,9 @@ export class FormController {
     event.preventDefault();
 
     const repoName = ($("#repo-name") as HTMLInputElement).value;
-    const data = await this.localStorageModel.loadAllDataFromLocalStorage(repoName);
+    const data = await this.localStorageModel.loadAllDataFromLocalStorage(
+      repoName
+    );
 
     if (data.length === 0) {
       this.formView.renderErrorMsg(
@@ -130,7 +139,7 @@ export class FormController {
     }
 
     this.trafficDataModel.setTrafficData(data);
-    this.resultController.renderResult(data);
+    this.eventBus.publish("initializeResult", data);
   }
 
   private bindInputClearEvents(
@@ -144,17 +153,11 @@ export class FormController {
     });
   }
 
-  private toggleClearButton(
-    input: HTMLInputElement,
-    button: HTMLButtonElement
-  ) {
-    button.style.display = input.value ? "block" : "none";
-  }
 
   private handleBackButtonClick() {
     this.formView.removeElement(".get-traffic-form");
     this.formView.removeElement(".load-traffic-form");
     this.formView.removeElement(".result");
-    this.mainMenuController.handleMainMenuRender();
+    this.eventBus.publish("initializeMainMenu");
   }
 }
