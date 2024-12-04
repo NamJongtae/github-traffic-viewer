@@ -1,10 +1,14 @@
+export interface TrafficData {
+  date: string;
+  views: number;
+  unique_vistior: number;
+}
+
 export interface View {
   count: number;
   uniques: number;
   timestamp: string;
 }
-
-export type TrafficData = View[];
 
 export interface ResponseTrafficData {
   count: number;
