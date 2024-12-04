@@ -145,6 +145,12 @@ button:hover {
   animation: fadeIn 0.5s ease forwards;
 }
 
+.last-updated {
+  text-align: end;
+  font-size: 12px;
+  margin-bottom: 10px;
+}
+
 .total-views,
 .total-visitors {
   font-size: 14px;
