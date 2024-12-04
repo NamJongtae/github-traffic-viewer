@@ -1,4 +1,6 @@
+import { EventBus } from "../EventBus";
 import { TrafficDataModel } from "../model/TrafficDataModel";
+import { EventMap } from "../types/EventMap";
 import { TrafficData } from "../types/trafficDataTypes";
 import { $, downloadExcel, downloadJson, validateDates } from "../utils";
 import { ResultView } from "../view/ResultView";
@@ -6,10 +8,19 @@ import { ResultView } from "../view/ResultView";
 export class ResultController {
   constructor(
     private trafficDataModel: TrafficDataModel,
-    private resultView: ResultView
-  ) {}
+    private resultView: ResultView,
+    private eventBus: EventBus<EventMap>
+  ) {
+    this.initialized();
+  }
 
-  renderResult(data: TrafficData) {
+  initialized() {
+    this.eventBus.subscribe("initializeResult", (data) => {
+      this.initializeResult(data);
+    });
+  }
+
+  private initializeResult(data: TrafficData) {
     this.resultView.removeElement(".error-msg");
     this.resultView.renderResult(data, () => this.bindResultEvents());
     const { views, visitors } =
@@ -18,7 +29,7 @@ export class ResultController {
     this.resultView.updateTrafficSummary(views, visitors);
   }
 
-  bindResultEvents() {
+  private bindResultEvents() {
     const startDateInput = $("#start-date") as HTMLInputElement;
     this.resultView.bindEvent(startDateInput, "input", () =>
       this.handleFilterChange()
