@@ -1,14 +1,61 @@
-import { TrafficData, View } from "../types/trafficDataTypes";
+import { TrafficData } from "../types/trafficDataTypes";
 
 export class LocalStorageModel {
   private readonly LOCAL_STORAGE_KEY_PREFIX = "trafficData_";
+  private readonly REPO_LIST_KEY = "repoList";
+
+  // 레포지토리 이름 관리
+  private async addRepoToList(repoName: string): Promise<void> {
+    const repoList = await this.getRepoList();
+    const isExist = repoList.some((data) => data.repoName === repoName);
+    if (!isExist) {
+      if (repoList.length >= 10) {
+        throw new Error(
+          "The maximum repository storage limit has been exceeded."
+        );
+      }
+      const now = new Date().toISOString();
+      const data = { lastUpdated: now, repoName };
+      repoList.push(data);
+      chrome.storage.local.set({ [this.REPO_LIST_KEY]: repoList });
+    }
+  }
+
+  private async removeRepoFromList(repoName: string): Promise<void> {
+    const repoList = await this.getRepoList();
+    const updatedRepoList = repoList.filter(
+      (data) => data.repoName !== repoName
+    );
+    chrome.storage.local.set({ [this.REPO_LIST_KEY]: updatedRepoList });
+  }
+
+  async getRepoList(): Promise<{ lastUpdated: string; repoName: string }[]> {
+    return new Promise((resolve, reject) => {
+      chrome.storage.local.get(this.REPO_LIST_KEY, (result) => {
+        if (chrome.runtime.lastError) {
+          reject(
+            new Error(
+              `Failed to load repository list: ${chrome.runtime.lastError.message}`
+            )
+          );
+        } else {
+          resolve(result[this.REPO_LIST_KEY] || []);
+        }
+      });
+    });
+  }
 
   // 날짜별로 데이터 저장
-  saveToLocalStorage(repoName: string, date: string, data: View) {
+  async saveToLocalStorage(repoName: string, date: string, data: TrafficData) {
     const key = this.getStorageKey(repoName, date);
-    chrome.storage.local.set({ [key]: data }, () =>
-      console.log(`Data saved for ${repoName} on ${date}`)
-    );
+    try {
+      await this.addRepoToList(repoName); // 저장할 때 레포 이름 추가
+    } catch (error) {
+      throw error;
+    }
+    chrome.storage.local.set({ [key]: data }, () => {
+      console.log(`Data saved for ${repoName} on ${date}`);
+    });
   }
 
   // 날짜별로 데이터 불러오기
@@ -69,7 +116,7 @@ export class LocalStorageModel {
   }
 
   // 키로 특정 데이터 로드
-  private loadSpecificKeyData(key: string): Promise<TrafficData[]> {
+  loadSpecificKeyData(key: string): Promise<TrafficData> {
     return new Promise((resolve, reject) => {
       chrome.storage.local.get(key, (result) => {
         if (chrome.runtime.lastError) {
@@ -87,7 +134,7 @@ export class LocalStorageModel {
   }
 
   // 모든 로컬스토리지 키 불러오기
-  private getAllKeys(): Promise<string[]> {
+  getAllKeys(): Promise<string[]> {
     return new Promise((resolve, reject) => {
       chrome.storage.local.get(null, (result) => {
         if (chrome.runtime.lastError) {
@@ -98,6 +145,36 @@ export class LocalStorageModel {
           );
         } else {
           resolve(Object.keys(result));
+        }
+      });
+    });
+  }
+
+  // 레포지토리 데이터 삭제
+  async deleteAllDataForRepo(repoName: string): Promise<void> {
+    const allKeys = await this.getAllKeys();
+    const keysToDelete = allKeys.filter((key) =>
+      key.startsWith(`${this.LOCAL_STORAGE_KEY_PREFIX}${repoName}_`)
+    );
+
+    if (keysToDelete.length === 0) {
+      throw new Error(
+        "The saved traffic data for this repository does not exist."
+      );
+    }
+
+    return new Promise((resolve, reject) => {
+      chrome.storage.local.remove(keysToDelete, async () => {
+        if (chrome.runtime.lastError) {
+          reject(
+            new Error(
+              `Failed to delete data for ${repoName}: ${chrome.runtime.lastError.message}`
+            )
+          );
+        } else {
+          await this.removeRepoFromList(repoName); // 삭제 시 레포 이름 제거
+          alert(`All data for ${repoName} has been deleted.`);
+          resolve();
         }
       });
     });
