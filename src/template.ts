@@ -52,12 +52,9 @@ export const getTrafficForm = `
 export const loadTrafficForm = `
   <form class="load-traffic-form">
     <label for="repo-name">Repository Name</label>
-    <div class="input-group">
-      <input type="text" id="repo-name" required />
-      <button type="button" class="clear-btn" data-input="#repo-name">
-        <img src="src/public/icons/x_icon.png" alt="Clear" />
-      </button>
-    </div>
+      <select id="repo-selector" required>
+        <option value="" disabled selected>Select Repository</option>
+      </select>
     <button type="submit" class="load-btn">Load Storage Data</button>
     <button type="button" class="back-btn">Back</button>
   </form>
@@ -78,7 +75,6 @@ export const trafficTable = `
 
 export const result = `
   <div class="result">
-    <h2 class="traffic-data-title">Traffic Data</h2>
     <p class="last-updated">Updated : <time class="last-updated-time"></time></p>
     <p class="total-views">Total Views : <span class="views"></span></p>
     <p class="total-visitors">
