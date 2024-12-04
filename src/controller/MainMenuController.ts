@@ -36,7 +36,7 @@ export class MainMenuController {
 
     const goToDocsBtn = $(".docs-btn") as HTMLButtonElement;
     this.mainMenuView.bindEvent(goToDocsBtn, "click", () => {
-      this.handleGoToDocsBtnClick;
+      this.handleGoToDocsBtnClick();
     });
   }
 
