@@ -44,7 +44,7 @@ export const getTrafficForm = `
           <img src="src/public/icons/x_icon.png" alt="reset" />
         </button>
       </div>
-      <button type="submit" class="submit-btn">Get Traffic</button>
+      <button type="submit" class="submit-btn">Get Traffic Data</button>
       <button type="button" class="back-btn">Back</button>
     </form>
 `;
@@ -79,6 +79,7 @@ export const trafficTable = `
 export const result = `
   <div class="result">
     <h2 class="traffic-data-title">Traffic Data</h2>
+    <p class="last-updated">Updated : <time class="last-updated-time"></time></p>
     <p class="total-views">Total Views : <span class="views"></span></p>
     <p class="total-visitors">
       Total Visitors : <span class="visitors"></span>
