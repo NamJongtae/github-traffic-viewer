@@ -1,36 +1,58 @@
+import { EventBus } from "../EventBus";
+import { EventMap } from "../types/EventMap";
 import { $ } from "../utils";
 import { MainMenuView } from "../view/MainMenuView";
-import { FormController } from "./FormController";
 
 export class MainMenuController {
-  private trafficFormController!: FormController; // 지연 초기화
-
-  constructor(private mainMenuView: MainMenuView) {
-    this.init();
-  }
-
-  setDependency(trafficFormController: FormController) {
-    this.trafficFormController = trafficFormController;
-  }
-
-  init() {
+  constructor(
+    private mainMenuView: MainMenuView,
+    private eventBus: EventBus<EventMap>
+  ) {
+    this.initialized();
     this.mainMenuView.renderLayout();
+    this.initializeMainMenu();
+  }
+
+  initialized() {
+    this.eventBus.subscribe("initializeMainMenu", () => {
+      this.initializeMainMenu();
+    });
+  }
+
+  initializeMainMenu() {
     this.mainMenuView.renderMainMenu(() => this.bindMainMenuEvents());
   }
 
   bindMainMenuEvents() {
     const getTrafficBtn = $(".get-traffic-btn") as HTMLButtonElement;
     this.mainMenuView.bindEvent(getTrafficBtn, "click", () =>
-      this.trafficFormController.handleGetTrafficClick()
+      this.handleGetTrafficBtnClick()
     );
 
     const loadTrafficBtn = $(".load-traffic-btn") as HTMLButtonElement;
     this.mainMenuView.bindEvent(loadTrafficBtn, "click", () =>
-      this.trafficFormController.handleLoadTrafficClick()
+      this.handleLoadTrafficBtnClick()
     );
+
+    const goToDocsBtn = $(".docs-btn") as HTMLButtonElement;
+    this.mainMenuView.bindEvent(goToDocsBtn, "click", () => {
+      this.handleGoToDocsBtnClick;
+    });
   }
 
-  handleMainMenuRender() {
-    this.mainMenuView.renderMainMenu(() => this.bindMainMenuEvents());
+  private handleGetTrafficBtnClick() {
+    this.eventBus.publish("initializeGetTrafficForm");
+  }
+
+  private handleLoadTrafficBtnClick() {
+    this.eventBus.publish("initializeLoadTrafficForm");
+  }
+
+  private handleGoToDocsBtnClick() {
+    window.open(
+      "https://github.com/NamJongtae/github-traffic-viewer",
+      "docs",
+      "width=500 height=700"
+    );
   }
 }
