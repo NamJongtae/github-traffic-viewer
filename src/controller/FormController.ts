@@ -84,14 +84,12 @@ export class FormController {
       );
 
       this.trafficDataModel.setTrafficData(mergedData);
- 
-      for (const view of responseData.views) {
-        this.localStorageModel.saveToLocalStorage(
-          repoName,
-          view.timestamp,
-          view
-        ); 
-      }
+
+      const savePromises = transformData.map((data) =>
+        this.localStorageModel.saveToLocalStorage(repoName, data.date, data)
+      );
+
+      await Promise.all(savePromises);
 
       this.eventBus.publish("initializeResult", mergedData);
     } catch (error: unknown) {
@@ -158,8 +156,7 @@ export class FormController {
       clearBtn.style.display = "none";
     });
   }
-
-
+  
   private handleBackButtonClick() {
     this.formView.removeElement(".get-traffic-form");
     this.formView.removeElement(".load-traffic-form");
