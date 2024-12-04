@@ -1,12 +1,12 @@
 import { ResponseTrafficData, TrafficData } from "../types/trafficDataTypes";
 
 export class TrafficDataModel {
-  data: TrafficData;
+  data: TrafficData[];
   constructor() {
-    this.data = {} as TrafficData;
+    this.data = [] as TrafficData[];
   }
 
-  setTrafficData(newData: TrafficData) {
+  setTrafficData(newData: TrafficData[]) {
     this.data = newData;
   }
 
@@ -40,23 +40,23 @@ export class TrafficDataModel {
     const end = endDate ? new Date(endDate) : null;
 
     return this.data.filter((item) => {
-      const itemDate = new Date(item.timestamp);
+      const itemDate = new Date(item.date);
       return (!start || itemDate >= start) && (!end || itemDate <= end);
     });
   }
 
-  sortData(filteredData: TrafficData, sortOrder: string) {
+  sortData(filteredData: TrafficData[], sortOrder: string) {
     const sortedData = filteredData.sort((a, b) => {
       if (sortOrder === "views") {
         // views 필드 기준 정렬
-        return b.count - a.count;
+        return b.views - a.views;
       } else if (sortOrder === "visitors") {
         // uniques 필드 기준 정렬
-        return b.uniques - a.uniques;
+        return b.unique_vistior - a.unique_vistior;
       } else {
         // 기본 날짜 정렬
-        const dateA = new Date(a.timestamp).getTime();
-        const dateB = new Date(b.timestamp).getTime();
+        const dateA = new Date(a.date).getTime();
+        const dateB = new Date(b.date).getTime();
         return sortOrder === "asc" ? dateA - dateB : dateB - dateA;
       }
     });
@@ -67,13 +67,13 @@ export class TrafficDataModel {
     startDate: string,
     endDate: string,
     sortOrder: string
-  ): TrafficData {
+  ): TrafficData[] {
     const start = startDate ? new Date(startDate) : null;
     const end = endDate ? new Date(endDate) : null;
 
     // 데이터 필터링
     const filteredData = this.data.filter((item) => {
-      const itemDate = new Date(item.timestamp);
+      const itemDate = new Date(item.date);
       return (!start || itemDate >= start) && (!end || itemDate <= end);
     });
 
@@ -82,9 +82,9 @@ export class TrafficDataModel {
     return sortedData;
   }
 
-  calculateTotalTraffic(data: TrafficData) {
-    const views = data.reduce((sum, item) => sum + item.count, 0);
-    const visitors = data.reduce((sum, item) => sum + item.uniques, 0);
+  calculateTotalTraffic(data: TrafficData[]) {
+    const views = data.reduce((sum, item) => sum + item.views, 0);
+    const visitors = data.reduce((sum, item) => sum + item.views, 0);
     return { views, visitors };
   }
 }

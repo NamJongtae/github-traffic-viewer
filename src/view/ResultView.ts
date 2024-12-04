@@ -1,17 +1,17 @@
-import { BaseView } from './BaseView';
+import { BaseView } from "./BaseView";
 import { result, trafficTable } from "../template";
 import { TrafficData } from "../types/trafficDataTypes";
 import { $, formatDate } from "../utils";
 
 export class ResultView extends BaseView {
-  renderResult(data: TrafficData, bindEvents: () => void) {
+  renderResult(data: TrafficData[], bindEvents: () => void) {
     this.removeElement(".result");
     this.rootEl.insertAdjacentHTML("beforeend", result);
     this.renderTrafficTable(data);
     bindEvents();
   }
 
-  renderTrafficTable(data: TrafficData) {
+  renderTrafficTable(data: TrafficData[]) {
     this.removeElement(".traffic-table");
     const hasData = data && data.length > 0;
 
@@ -28,14 +28,14 @@ export class ResultView extends BaseView {
     this.updateTableBody(data);
   }
 
-  updateTableBody(data: TrafficData) {
+  updateTableBody(data: TrafficData[]) {
     const tableBody = $(".traffic-body")!;
     data.forEach((view) => {
       const row = document.createElement("tr");
       row.innerHTML = `
-        <td>${formatDate(view.timestamp)}</td>
-        <td>${view.count}</td>
-        <td>${view.uniques}</td>
+        <td>${view.date}</td>
+        <td>${view.views}</td>
+        <td>${view.unique_vistior}</td>
       `;
       tableBody.appendChild(row);
     });
@@ -66,7 +66,7 @@ export class ResultView extends BaseView {
     $(".visitors")!.textContent = visitors.toString();
   }
 
-  updateFilteredView(data: TrafficData, views: number, visitors: number) {
+  updateFilteredView(data: TrafficData[], views: number, visitors: number) {
     this.updateTrafficSummary(views, visitors);
     this.renderTrafficTable(data);
   }

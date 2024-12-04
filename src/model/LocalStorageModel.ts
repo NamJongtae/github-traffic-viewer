@@ -12,7 +12,7 @@ export class LocalStorageModel {
   }
 
   // 날짜별로 데이터 불러오기
-  loadFromLocalStorage(repoName: string, date: string): Promise<TrafficData> {
+  loadFromLocalStorage(repoName: string, date: string): Promise<TrafficData[]> {
     const key = this.getStorageKey(repoName, date);
 
     return new Promise((resolve, reject) => {
@@ -34,16 +34,14 @@ export class LocalStorageModel {
   // 전체 데이터를 불러와서 병합
   async mergeDataWithLocalStorage(
     repoName: string,
-    newData: TrafficData
-  ): Promise<TrafficData> {
+    newData: TrafficData[]
+  ): Promise<TrafficData[]> {
     const allData = await this.loadAllDataFromLocalStorage(repoName);
     const mergedData = [...allData]; // 기존 전체 데이터
 
     // 새 데이터를 병합
     newData.forEach((newItem) => {
-      const index = mergedData.findIndex(
-        (item) => item.timestamp === newItem.timestamp
-      );
+      const index = mergedData.findIndex((item) => item.date === newItem.date);
       if (index > -1) {
         mergedData[index] = newItem; // 중복된 항목 업데이트
       } else {
@@ -56,12 +54,10 @@ export class LocalStorageModel {
   }
 
   // repoName에 해당하는 모든 날짜의 데이터를 불러오기
-  async loadAllDataFromLocalStorage(repoName: string): Promise<TrafficData> {
+  async loadAllDataFromLocalStorage(repoName: string): Promise<TrafficData[]> {
     const allKeys = await this.getAllKeys();
-    const relevantKeys = allKeys.filter(
-      (key) =>
-        key.startsWith(`${this.LOCAL_STORAGE_KEY_PREFIX}${repoName}_`) &&
-        !key.endsWith("_all")
+    const relevantKeys = allKeys.filter((key) =>
+      key.startsWith(`${this.LOCAL_STORAGE_KEY_PREFIX}${repoName}_`)
     );
 
     const dataPromises = relevantKeys.map((key) =>
@@ -73,7 +69,7 @@ export class LocalStorageModel {
   }
 
   // 키로 특정 데이터 로드
-  private loadSpecificKeyData(key: string): Promise<TrafficData> {
+  private loadSpecificKeyData(key: string): Promise<TrafficData[]> {
     return new Promise((resolve, reject) => {
       chrome.storage.local.get(key, (result) => {
         if (chrome.runtime.lastError) {

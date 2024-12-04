@@ -37,19 +37,13 @@ export function validateDates(startDate: string, endDate: string) {
   return true;
 }
 
-export function downloadJson(data: TrafficData) {
+export function downloadJson(data: TrafficData[]) {
   if (!data || data.length === 0) {
     alert("The data to download does not exist.");
     return;
   }
 
-  const transformData = data.map((item) => ({
-    Date: item.timestamp,
-    Views: item.count,
-    "Unique visitors": item.uniques,
-  }));
-
-  const blob = new Blob([JSON.stringify(transformData, null, 2)], {
+  const blob = new Blob([JSON.stringify(data, null, 2)], {
     type: "application/json",
   });
   const url = URL.createObjectURL(blob);
@@ -60,19 +54,13 @@ export function downloadJson(data: TrafficData) {
   URL.revokeObjectURL(url);
 }
 
-export function downloadExcel(data: TrafficData) {
+export function downloadExcel(data: TrafficData[]) {
   if (!data || data.length === 0) {
     alert("The data to download does not exist.");
     return;
   }
 
-  const transformData = data.map((item) => ({
-    Date: item.timestamp,
-    Views: item.count,
-    "Unique visitors": item.uniques,
-  }));
-
-  const worksheet = XLSX.utils.json_to_sheet(transformData);
+  const worksheet = XLSX.utils.json_to_sheet(data);
   const workbook = XLSX.utils.book_new();
   XLSX.utils.book_append_sheet(workbook, worksheet, "Traffic Data");
 

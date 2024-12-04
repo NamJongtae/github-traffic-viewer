@@ -20,7 +20,7 @@ export class ResultController {
     });
   }
 
-  private initializeResult(data: TrafficData) {
+  private initializeResult(data: TrafficData[]) {
     this.resultView.removeElement(".error-msg");
     this.resultView.renderResult(data, () => this.bindResultEvents());
     const { views, visitors } =
