@@ -84,7 +84,7 @@ export class TrafficDataModel {
 
   calculateTotalTraffic(data: TrafficData[]) {
     const views = data.reduce((sum, item) => sum + item.views, 0);
-    const visitors = data.reduce((sum, item) => sum + item.views, 0);
+    const visitors = data.reduce((sum, item) => sum + item.unique_vistior, 0);
     return { views, visitors };
   }
 }
