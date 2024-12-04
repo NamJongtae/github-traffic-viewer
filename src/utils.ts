@@ -25,8 +25,16 @@ export function formatDate(dateString: string) {
   const year = date.getFullYear().toString().slice(2);
   const month = String(date.getMonth() + 1).padStart(2, "0");
   const day = String(date.getDate()).padStart(2, "0");
+  const hour =
+    date.getHours() < 10
+      ? String(date.getHours()).padStart(2, "0")
+      : String(date.getHours());
+  const minutes =
+    date.getMinutes() < 10
+      ? String(date.getMinutes()).padStart(2, "0")
+      : String(date.getMinutes());
 
-  return `${year}.${month}.${day}`;
+  return `${year}.${month}.${day} ${hour}:${minutes}`;
 }
 
 // 날짜 필터 유효성 체크
