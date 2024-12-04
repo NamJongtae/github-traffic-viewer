@@ -26,7 +26,6 @@ export class FormController {
 
   initializeGetTrafficForm() {
     this.formView.renderGetTrafficForm(() => this.bindTrafficFormEvents());
-    this.loadRepoListAndCreateOptions();
   }
 
   private bindTrafficFormEvents() {
@@ -105,6 +104,7 @@ export class FormController {
 
   private initializeLoadTrafficForm() {
     this.formView.renderLoadTrafficForm(() => this.bindLoadTrafficFormEvents());
+    this.loadRepoListAndCreateOptions();
   }
 
   private bindLoadTrafficFormEvents() {
@@ -122,7 +122,7 @@ export class FormController {
   private async handleLoadFormSubmit(event: Event) {
     event.preventDefault();
 
-    const repoName = ($("#repo-name") as HTMLInputElement).value;
+    const repoName = ($("#repo-selector") as HTMLSelectElement).value;
     const data = await this.localStorageModel.loadAllDataFromLocalStorage(
       repoName
     );
