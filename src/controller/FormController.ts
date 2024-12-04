@@ -26,6 +26,7 @@ export class FormController {
 
   initializeGetTrafficForm() {
     this.formView.renderGetTrafficForm(() => this.bindTrafficFormEvents());
+    this.loadRepoListAndCreateOptions();
   }
 
   private bindTrafficFormEvents() {
@@ -112,14 +113,6 @@ export class FormController {
       this.handleLoadFormSubmit(e)
     );
 
-    const input = $(".input-group input") as HTMLInputElement;
-    const clearBtn = input.nextElementSibling as HTMLButtonElement;
-    this.formView.toggleClearButton(input, clearBtn);
-
-    this.formView.bindEvent(input, "input", () => {
-      this.bindInputClearEvents(input, clearBtn);
-    });
-
     const backBtn = $(".back-btn") as HTMLButtonElement;
     this.formView.bindEvent(backBtn, "click", () =>
       this.handleBackButtonClick()
@@ -156,7 +149,16 @@ export class FormController {
       clearBtn.style.display = "none";
     });
   }
-  
+
+  private async loadRepoListAndCreateOptions() {
+    try {
+      const repoList = await this.localStorageModel.getRepoList();
+      this.formView.createRepoListOption(repoList);
+    } catch (error) {
+      console.error("Failed to get repository list:", error);
+    }
+  }
+
   private handleBackButtonClick() {
     this.formView.removeElement(".get-traffic-form");
     this.formView.removeElement(".load-traffic-form");
