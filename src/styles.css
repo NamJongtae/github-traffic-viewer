@@ -72,19 +72,22 @@ button:hover {
 }
 
 .get-traffic-form,
-.load-traffic-form {
+.load-traffic-form,
+.delete-traffic-form {
   display: flex;
   flex-direction: column;
 }
 
 .get-traffic-form label,
-.load-traffic-form label {
+.load-traffic-form label,
+.delete-traffic-form label {
   font-size: 12px;
   margin: 10px 0 5px;
 }
 
 .get-traffic-form input,
-.load-traffic-form input {
+.load-traffic-form input,
+.delete-traffic-form input {
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
