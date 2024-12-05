@@ -56,7 +56,7 @@ export const loadTrafficForm = `
       <select id="repo-selector" required>
         <option value="" disabled selected>Select Repository</option>
       </select>
-    <button type="submit" class="load-btn">Load Storage Data</button>
+    <button type="submit" class="submit-btn">Load Storage Data</button>
     <button type="button" class="back-btn">Back</button>
   </form>
 `;
@@ -64,11 +64,9 @@ export const loadTrafficForm = `
 export const deleteTrafficForm = `
   <form class="delete-traffic-form">
     <label for="repo-name">Repository Name</label>
-    <div class="input-group">
       <select id="repo-selector" required>
         <option value="" disabled selected>Select Repository</option>
       </select>
-    </div>
     <button type="submit" class="submit-btn">Delete Storage Data</button>
     <button type="button" class="back-btn">Back</button>
   </form>
