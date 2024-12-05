@@ -1,5 +1,9 @@
 import { BaseView } from "./BaseView";
-import { getTrafficForm, loadTrafficForm } from "../template";
+import {
+  deleteTrafficForm,
+  getTrafficForm,
+  loadTrafficForm,
+} from "../template";
 import { $ } from "../utils";
 
 export class FormView extends BaseView {
@@ -13,6 +17,12 @@ export class FormView extends BaseView {
     this.removeElement(".main-menu");
     $(".title")!.insertAdjacentHTML("afterend", loadTrafficForm);
     bindEvents();
+  }
+
+  renderDeleteTrafficForm(bindEvent: () => void) {
+    this.removeElement(".main-menu");
+    $(".title")!.insertAdjacentHTML("afterend", deleteTrafficForm);
+    bindEvent();
   }
 
   createRepoListOption(repoList: { lastUpdated: string; repoName: string }[]) {
@@ -33,6 +43,18 @@ export class FormView extends BaseView {
       noDataOption.disabled = true;
       repoSelector.appendChild(noDataOption);
     }
+  }
+
+  resetRepoSelector() {
+    const repoSelector = $(
+      "#repo-selector"
+    ) as HTMLSelectElement;
+
+    Array.from(repoSelector.options)
+      .filter((option) => option.value !== "")
+      .forEach((option) => option.remove());
+
+    repoSelector.value = repoSelector.options[0].value;
   }
 
   toggleClearButton(input: HTMLInputElement, button: HTMLButtonElement) {
