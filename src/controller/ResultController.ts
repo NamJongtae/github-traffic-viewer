@@ -15,14 +15,14 @@ export class ResultController {
   }
 
   initialized() {
-    this.eventBus.subscribe("initializeResult", (data) => {
-      this.initializeResult(data);
+    this.eventBus.subscribe("initializeResult", (data, repoName) => {
+      this.initializeResult(data, repoName);
     });
   }
 
-  private initializeResult(data: TrafficData[]) {
+  private initializeResult(data: TrafficData[], repoName: string) {
     this.resultView.removeElement(".error-msg");
-    this.resultView.renderResult(data, () => this.bindResultEvents());
+    this.resultView.renderResult(data, repoName, () => this.bindResultEvents());
     const { views, visitors } =
       this.trafficDataModel.calculateTotalTraffic(data);
 
