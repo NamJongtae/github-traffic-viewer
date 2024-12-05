@@ -15,6 +15,7 @@ export const mainMenu = `
       <div class="button-group">
         <button class="get-traffic-btn">Get New Traffic Data</button>
         <button class="load-traffic-btn">Load To Storage Traffic Data</button>
+        <button class="delete-traffic-btn">Delete Storage Traffic Data</button>
         <button class="docs-btn">Go To Docs</button>
       </div>
       <p class="source-link">Data provided by <a href="https://api.github.com" target="_blank">GitHub API</a></p>
@@ -56,6 +57,19 @@ export const loadTrafficForm = `
         <option value="" disabled selected>Select Repository</option>
       </select>
     <button type="submit" class="load-btn">Load Storage Data</button>
+    <button type="button" class="back-btn">Back</button>
+  </form>
+`;
+
+export const deleteTrafficForm = `
+  <form class="delete-traffic-form">
+    <label for="repo-name">Repository Name</label>
+    <div class="input-group">
+      <select id="repo-selector" required>
+        <option value="" disabled selected>Select Repository</option>
+      </select>
+    </div>
+    <button type="submit" class="submit-btn">Delete Storage Data</button>
     <button type="button" class="back-btn">Back</button>
   </form>
 `;
