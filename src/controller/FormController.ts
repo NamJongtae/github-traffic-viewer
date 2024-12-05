@@ -22,6 +22,9 @@ export class FormController {
     this.eventBus.subscribe("initializeLoadTrafficForm", () => {
       this.initializeLoadTrafficForm();
     });
+    this.eventBus.subscribe("initializeDeleteTrafficForm", () => {
+      this.initializeDeleteTrafficForm();
+    });
   }
 
   initializeGetTrafficForm() {
@@ -150,6 +153,43 @@ export class FormController {
     });
   }
 
+  private initializeDeleteTrafficForm() {
+    this.formView.renderDeleteTrafficForm(() =>
+      this.bindDeleteTrafficFormEvents()
+    );
+    this.loadRepoListAndCreateOptions();
+  }
+
+  private bindDeleteTrafficFormEvents() {
+    const form = $(".delete-traffic-form") as HTMLFormElement;
+    this.formView.bindEvent(form, "submit", (e) =>
+      this.handleDeleteFormSubmit(e)
+    );
+
+    const backBtn = $(".back-btn") as HTMLButtonElement;
+    this.formView.bindEvent(backBtn, "click", () =>
+      this.handleBackButtonClick()
+    );
+  }
+
+  private async handleDeleteFormSubmit(e: Event) {
+    e.preventDefault();
+
+    const repoName = ($("#repo-selector") as HTMLSelectElement).value;
+    this.formView.removeErrorMsg();
+
+    try {
+      await this.localStorageModel.deleteAllDataForRepo(repoName);
+      this.formView.resetRepoSelector();
+    } catch (error) {
+      if (error instanceof Error) {
+        this.formView.renderErrorMsg(".back-btn", error.message);
+      }
+    } finally {
+      this.loadRepoListAndCreateOptions();
+    }
+  }
+
   private async loadRepoListAndCreateOptions() {
     try {
       const repoList = await this.localStorageModel.getRepoList();
@@ -162,6 +202,7 @@ export class FormController {
   private handleBackButtonClick() {
     this.formView.removeElement(".get-traffic-form");
     this.formView.removeElement(".load-traffic-form");
+    this.formView.removeElement(".delete-traffic-form");
     this.formView.removeElement(".result");
     this.eventBus.publish("initializeMainMenu");
   }
