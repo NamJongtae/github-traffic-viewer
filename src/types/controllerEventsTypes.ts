@@ -10,5 +10,5 @@ export type FormControllerEvents = {
 };
 
 export type ResultControllerEvents = {
-  initializeResult: (data: TrafficData[]) => void;
+  initializeResult: (data: TrafficData[], repoName: string) => void;
 };
