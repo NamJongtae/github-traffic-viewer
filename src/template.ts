@@ -8,7 +8,7 @@ export const mainMenu = `
         <p>GitHub Traffic provides data for only the past 14 days.</p>
         <p>To prevent data loss, the fetched data is stored.</p>
         <p>
-          🚨 Uninstalling this extension will delete all saved traffic data!
+          <strong>🚨 Uninstalling will delete all saved data!</strong>
         </p>
       </div>
 
