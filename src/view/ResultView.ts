@@ -4,12 +4,17 @@ import { TrafficData } from "../types/trafficDataTypes";
 import { $, formatDate } from "../utils";
 
 export class ResultView extends BaseView {
-  renderResult(data: TrafficData[], bindEvents: () => void) {
+  renderResult(data: TrafficData[], repoName:string, bindEvents: () => void) {
     this.removeElement(".result");
     this.rootEl.insertAdjacentHTML("beforeend", result);
+    this.updateTrafficDataTitle(repoName)
     this.renderTrafficTable(data);
     this.updateLastUpdated();
     bindEvents();
+  }
+
+  private updateTrafficDataTitle(repoName: string) {
+    $(".traffic-data-title .repo-name")!.textContent = repoName;
   }
 
   private updateLastUpdated() {
