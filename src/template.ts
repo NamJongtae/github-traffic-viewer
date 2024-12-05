@@ -75,6 +75,7 @@ export const trafficTable = `
 
 export const result = `
   <div class="result">
+    <h2 class="traffic-data-title"> <span class="repo-name"></span> Traffic Data</h2>
     <p class="last-updated">Updated : <time class="last-updated-time"></time></p>
     <p class="total-views">Total Views : <span class="views"></span></p>
     <p class="total-visitors">
