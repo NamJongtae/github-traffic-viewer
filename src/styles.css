@@ -166,10 +166,6 @@ button:hover {
   margin: 10px 0;
 }
 
-.load-btn {
-  margin-bottom: 10px;
-}
-
 .submit-btn:hover,
 .load-btn:hover {
   background-color: #0056b3;
