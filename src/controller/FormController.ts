@@ -91,7 +91,7 @@ export class FormController {
 
       await Promise.all(savePromises);
 
-      this.eventBus.publish("initializeResult", mergedData);
+      this.eventBus.publish("initializeResult", mergedData, repoName);
     } catch (error: unknown) {
       if (error instanceof Error) {
         const message = generateFormErrorMsg(error);
@@ -136,7 +136,7 @@ export class FormController {
     }
 
     this.trafficDataModel.setTrafficData(data);
-    this.eventBus.publish("initializeResult", data);
+    this.eventBus.publish("initializeResult", data, repoName);
   }
 
   private bindInputClearEvents(
