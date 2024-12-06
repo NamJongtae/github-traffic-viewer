@@ -65,8 +65,9 @@ export class FormController {
     const githubId = ($("#github-username") as HTMLInputElement).value;
     const githubToken = ($("#github-token") as HTMLInputElement).value;
     const repoName = ($("#repo-name") as HTMLInputElement).value;
-
-    this.formView.activeFormLoading();
+    
+    this.formView.removeErrorMsg();
+    this.formView.activeFormLoading("Loading Traffic Data...");
 
     try {
       const responseData = await this.trafficDataModel.fetchTrafficData(
@@ -101,7 +102,7 @@ export class FormController {
         this.formView.renderErrorMsg(".back-btn", message);
       }
     } finally {
-      this.formView.inactiveFormLoading();
+      this.formView.inactiveFormLoading("Get Traffic Data");
     }
   }
 
@@ -126,20 +127,31 @@ export class FormController {
     event.preventDefault();
 
     const repoName = ($("#repo-selector") as HTMLSelectElement).value;
-    const data = await this.localStorageModel.loadAllDataFromLocalStorage(
-      repoName
-    );
+    this.formView.removeErrorMsg();
+    this.formView.activeFormLoading("Loading Storage Data...");
 
-    if (data.length === 0) {
-      this.formView.renderErrorMsg(
-        ".back-btn",
-        "The saved traffic data for this repository does not exist."
+    try {
+      const data = await this.localStorageModel.loadAllDataFromLocalStorage(
+        repoName
       );
-      return;
-    }
 
-    this.trafficDataModel.setTrafficData(data);
-    this.eventBus.publish("initializeResult", data, repoName);
+      if (data.length === 0) {
+        this.formView.renderErrorMsg(
+          ".back-btn",
+          "The saved traffic data for this repository does not exist."
+        );
+        return;
+      }
+
+      this.trafficDataModel.setTrafficData(data);
+      this.eventBus.publish("initializeResult", data, repoName);
+    } catch (error) {
+      if (error instanceof Error) {
+        this.formView.renderErrorMsg(".back-btn", error.message);
+      }
+    } finally {
+      this.formView.inactiveFormLoading("Load Storage Data");
+    }
   }
 
   private bindInputClearEvents(
@@ -177,16 +189,24 @@ export class FormController {
 
     const repoName = ($("#repo-selector") as HTMLSelectElement).value;
     this.formView.removeErrorMsg();
+    this.formView.activeFormLoading("Deleting Storage Data...");
 
     try {
+      const isDelete = confirm(
+        `Are you sure you want to delete the traffic data for ${repoName}?`
+      );
+      if (!isDelete) {
+        return;
+      }
       await this.localStorageModel.deleteAllDataForRepo(repoName);
       this.formView.resetRepoSelector();
+      this.loadRepoListAndCreateOptions();
     } catch (error) {
       if (error instanceof Error) {
         this.formView.renderErrorMsg(".back-btn", error.message);
       }
     } finally {
-      this.loadRepoListAndCreateOptions();
+      this.formView.inactiveFormLoading("Delete Storage Data")
     }
   }
 
