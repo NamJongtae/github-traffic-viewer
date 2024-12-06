@@ -61,16 +61,16 @@ export class FormView extends BaseView {
     button.style.display = input.value ? "block" : "none";
   }
 
-  activeFormLoading() {
+  activeFormLoading(text: string) {
     const submitBtnEl = $(".submit-btn") as HTMLButtonElement;
-    submitBtnEl.textContent = "Loading Traffic Data...";
+    submitBtnEl.textContent = text;
     submitBtnEl.style.opacity = "0.5";
     submitBtnEl.style.pointerEvents = "none";
   }
 
-  inactiveFormLoading() {
+  inactiveFormLoading(text: string) {
     const submitBtnEl = $(".submit-btn") as HTMLButtonElement;
-    submitBtnEl.textContent = "Get Traffic Data";
+    submitBtnEl.textContent = text;
     submitBtnEl.style.opacity = "1";
     submitBtnEl.style.pointerEvents = "auto";
   }
