@@ -40,20 +40,6 @@ export class BaseView {
     this.removeElement(".no-data");
   }
 
-  activeFormLoading() {
-    const submitBtnEl = $(".submit-btn") as HTMLButtonElement;
-    submitBtnEl.textContent = "Loading Traffic Data...";
-    submitBtnEl.style.opacity = "0.5";
-    submitBtnEl.style.pointerEvents = "none";
-  }
-
-  inactiveFormLoading() {
-    const submitBtnEl = $(".submit-btn") as HTMLButtonElement;
-    submitBtnEl.textContent = "Get Traffic Data";
-    submitBtnEl.style.opacity = "1";
-    submitBtnEl.style.pointerEvents = "auto";
-  }
-
   removeElement(selector: string) {
     $(selector)?.remove();
   }
