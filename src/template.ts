@@ -4,15 +4,20 @@ export const layout = `
 
 export const mainMenu = `
     <div class="main-menu">
-      <div class="desc">
-        <p>GitHub Traffic provides data for only the past 14 days.</p>
-        <p>To prevent data loss, the fetched data is stored.</p>
-        <p>
-          <strong>🚨 Uninstalling will delete all saved data!</strong>
+      <section class="desc">
+        <h2 class="a11y">Traffic Data Storage Dsecription</h2>
+        <ul>
+          <li>GitHub Traffic provides data for only the past <strong>14 days.</strong></li>
+          <li>Fetched data is stored to <strong>prevent data loss</strong>.</li>
+          <li>You can save data for up to <strong>20 repositories</strong>.</li>
+          <li>Stored data will be kept for <strong>up to 2 years</strong> and then automatically deleted.</li>
+        </ul>
+        <p class="warning">
+          🚨 <strong>Uninstalling will delete all saved data!</strong>
         </p>
-      </div>
+      </section>
 
-      <div class="button-group">
+    <div class="button-group">
         <button class="get-traffic-btn">Get New Traffic Data</button>
         <button class="load-traffic-btn">Load To Storage Traffic Data</button>
         <button class="delete-traffic-btn">Delete Storage Traffic Data</button>
@@ -89,10 +94,22 @@ export const result = `
   <div class="result">
     <h2 class="traffic-data-title"> <span class="repo-name"></span> Traffic Data</h2>
     <p class="last-updated">Updated : <time class="last-updated-time"></time></p>
+        
+    <div class="download-btn-group" role="button" tabindex="0">
+      <label for="download-format" class="a11y">Download Format</label>
+      <button class="download-btn"> <img class="download-icon" src="src/public/icons/download_icon.png" /> Download As</button>
+      <select id="download-format" class="download-format-selector">
+        <option value="json">JSON</option>
+        <option value="excel">EXCEL</option>
+        <option value="txt">TXT</option>
+      </select>
+    </div>
+
     <p class="total-views">Total Views : <span class="views"></span></p>
     <p class="total-visitors">
       Total Visitors : <span class="visitors"></span>
     </p>
+
     <div class="filters">
       <div class="date-filte">
         <label class="a11y" for="start-date">Start Date</label>
@@ -110,11 +127,6 @@ export const result = `
           <option value="visitors">Visitors</option>
         </select>
       </div>
-    </div>
-
-    <div class="download-btn-group">
-      <button class="download-json-btn">Download Data As JSON</button>
-      <button class="download-excel-btn">Download Data As Excel</button>
     </div>
   </div>
 `;
