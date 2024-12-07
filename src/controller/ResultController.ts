@@ -2,7 +2,7 @@ import { EventBus } from "../EventBus";
 import { TrafficDataModel } from "../model/TrafficDataModel";
 import { EventMap } from "../types/EventMap";
 import { TrafficData } from "../types/trafficDataTypes";
-import { $, downloadExcel, downloadJson, validateDates } from "../utils";
+import { $, downloadExcel, downloadJson, downloadTxt, validateDates } from "../utils";
 import { ResultView } from "../view/ResultView";
 
 export class ResultController {
@@ -47,22 +47,24 @@ export class ResultController {
       this.handleFilterChange()
     );
 
-    const downloadJsonBtn = $(".download-json-btn") as HTMLButtonElement;
-    this.resultView.bindEvent(downloadJsonBtn, "click", () => {
+    const downloadBtnGroup = $(".download-btn-group") as HTMLButtonElement;
+    const downloadFormatSelectorEl = $("#download-format") as HTMLSelectElement;
+    this.resultView.bindEvent(downloadBtnGroup, "click", () => {
+      const selectedFormat = downloadFormatSelectorEl.value;
       const startDate = startDateInput.value;
       const endDate = endDateInput.value;
-
       const data = this.trafficDataModel.filterDataByDate(startDate, endDate);
-      downloadJson(data);
+
+      if (selectedFormat === "json") {
+        downloadJson(data);
+      } else if (selectedFormat === "excel") {
+        downloadExcel(data);
+      } else {
+        downloadTxt(data)
+      }
     });
-
-    const downloadExcelBtn = $(".download-excel-btn") as HTMLButtonElement;
-    this.resultView.bindEvent(downloadExcelBtn, "click", () => {
-      const startDate = startDateInput.value;
-      const endDate = endDateInput.value;
-
-      const data = this.trafficDataModel.filterDataByDate(startDate, endDate);
-      downloadExcel(data);
+    this.resultView.bindEvent(downloadFormatSelectorEl, "click", (e: Event) => {
+      e.stopPropagation();
     });
   }
 
