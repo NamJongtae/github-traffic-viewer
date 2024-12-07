@@ -86,3 +86,25 @@ export function downloadExcel(data: TrafficData[]) {
   a.click();
   URL.revokeObjectURL(url);
 }
+
+export function downloadTxt(data: TrafficData[]) {
+  if (!data || data.length === 0) {
+    alert("The data to download does not exist.");
+    return;
+  }
+
+  const textContent = data
+    .map((item) => JSON.stringify(item, null, 2))
+    .join("\n\n");
+
+  const blob = new Blob([textContent], {
+    type: "text/plain",
+  });
+
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = `trafficData.txt`;
+  a.click();
+  URL.revokeObjectURL(url);
+}
