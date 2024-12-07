@@ -47,7 +47,7 @@ export class ResultView extends BaseView {
     }
 
     this.removeElement(".no-data");
-    $(".filters")!.insertAdjacentHTML("afterend", trafficTable);
+    $(".result")!.insertAdjacentHTML("beforeend", trafficTable);
     this.updateTableBody(data);
   }
 
