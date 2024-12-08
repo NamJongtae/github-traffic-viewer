@@ -91,7 +91,7 @@ export const trafficTable = `
 `;
 
 export const result = `
-  <div class="result">
+  <section class="result">
     <h2 class="traffic-data-title"> <span class="repo-name"></span> Traffic Data</h2>
     <p class="last-updated">Updated : <time class="last-updated-time"></time></p>
         
@@ -128,5 +128,5 @@ export const result = `
         </select>
       </div>
     </div>
-  </div>
+  </section>
 `;
