@@ -102,9 +102,9 @@ export const result = `
     <h2 class="traffic-data-title"> <span class="repo-name"></span> Traffic Data</h2>
     <p class="last-updated">Updated : <time class="last-updated-time"></time></p>
         
-    <div class="download-btn-group" role="button" tabindex="0">
+    <div class="download-btn" role="button" tabindex="0">
       <label for="download-format" class="a11y">Download Format</label>
-      <button class="download-btn"> <img class="download-icon" src="src/public/icons/download_icon.png" /> Download As</button>
+      <img class="download-icon" src="src/public/icons/download_icon.png" /> Download As
       <select id="download-format" class="download-format-selector">
         <option value="json">JSON</option>
         <option value="excel">EXCEL</option>
@@ -135,6 +135,8 @@ export const result = `
         </select>
       </div>
     </div>
+
+    <button class="close-btn" type="button"><img src="src/public/icons/x_icon.png" alt="close result" width=12 height=12/></button>
   </section>
 </div>
 `;
