@@ -39,11 +39,11 @@ export class ResultView extends BaseView {
     this.removeElement(".traffic-table");
     const hasData = data && data.length > 0;
 
-    this.displayDownloadBtns();
+    this.displayDownloadBtn();
 
     if (!hasData) {
       this.renderNoDataMessage();
-      this.hideDownloadBtns();
+      this.hideDownloadBtn();
       return;
     }
 
@@ -95,12 +95,12 @@ export class ResultView extends BaseView {
     this.renderTrafficTable(data);
   }
 
-  hideDownloadBtns() {
-    ($(".download-btn-group") as HTMLDivElement).style.display = "none";
+  hideDownloadBtn() {
+    ($(".download-btn") as HTMLDivElement).style.display = "none";
   }
 
-  displayDownloadBtns() {
-    ($(".download-btn-group") as HTMLDivElement).style.display = "flex";
+  displayDownloadBtn() {
+    ($(".download-btn") as HTMLDivElement).style.display = "flex";
   }
 
   closeResult() {
