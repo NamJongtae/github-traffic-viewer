@@ -1,5 +1,11 @@
 export const layout = `
-    <h1 class="title">GitHub Traffic Viewer</h1>
+  <header>
+      <h1 class="title">GitHub Traffic Viewer</h1>
+  </header>
+
+    <footer>
+        <p class="source-link">Data provided by <a href="https://api.github.com" target="_blank">GitHub API</a></p>
+    </footer>
 `;
 
 export const mainMenu = `
@@ -17,13 +23,12 @@ export const mainMenu = `
         </p>
       </section>
 
-    <div class="button-group">
-        <button class="get-traffic-btn">Get New Traffic Data</button>
-        <button class="load-traffic-btn">Load To Storage Traffic Data</button>
-        <button class="delete-traffic-btn">Delete Storage Traffic Data</button>
-        <button class="docs-btn">Go To Docs</button>
+      <div class="button-group">
+        <button class="root-btn get-traffic-btn">Get New Traffic Data</button>
+        <button class="root-btn load-traffic-btn">Load To Storage Traffic Data</button>
+        <button class="root-btn delete-traffic-btn">Delete Storage Traffic Data</button>
+        <button class="root-btn docs-btn">Go To Docs</button>
       </div>
-      <p class="source-link">Data provided by <a href="https://api.github.com" target="_blank">GitHub API</a></p>
     </div>
 `;
 
@@ -50,8 +55,8 @@ export const getTrafficForm = `
           <img src="src/public/icons/x_icon.png" alt="reset" />
         </button>
       </div>
-      <button type="submit" class="submit-btn">Get Traffic Data</button>
-      <button type="button" class="back-btn">Back</button>
+      <button type="submit" class="root-btn submit-btn">Get Traffic Data</button>
+      <button type="button" class="root-btn back-btn">Back</button>
     </form>
 `;
 
@@ -61,8 +66,8 @@ export const loadTrafficForm = `
       <select id="repo-selector" required>
         <option value="" disabled selected>Select Repository</option>
       </select>
-    <button type="submit" class="submit-btn">Load Storage Data</button>
-    <button type="button" class="back-btn">Back</button>
+    <button type="submit" class="root-btn submit-btn">Load Storage Data</button>
+    <button type="button" class="root-btn back-btn">Back</button>
   </form>
 `;
 
@@ -72,8 +77,8 @@ export const deleteTrafficForm = `
       <select id="repo-selector" required>
         <option value="" disabled selected>Select Repository</option>
       </select>
-    <button type="submit" class="submit-btn">Delete Storage Data</button>
-    <button type="button" class="back-btn">Back</button>
+    <button type="submit" class="root-btn submit-btn">Delete Storage Data</button>
+    <button type="button" class="root-btn back-btn">Back</button>
   </form>
 `;
 
@@ -91,6 +96,8 @@ export const trafficTable = `
 `;
 
 export const result = `
+<div class="result-wrapper">
+  <div class="result-dim" role="button" aria-label="close result"></div>
   <section class="result">
     <h2 class="traffic-data-title"> <span class="repo-name"></span> Traffic Data</h2>
     <p class="last-updated">Updated : <time class="last-updated-time"></time></p>
@@ -129,4 +136,5 @@ export const result = `
       </div>
     </div>
   </section>
+</div>
 `;
