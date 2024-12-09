@@ -2,7 +2,13 @@ import { EventBus } from "../EventBus";
 import { TrafficDataModel } from "../model/TrafficDataModel";
 import { EventMap } from "../types/EventMap";
 import { TrafficData } from "../types/trafficDataTypes";
-import { $, downloadExcel, downloadJson, downloadTxt, validateDates } from "../utils";
+import {
+  $,
+  downloadExcel,
+  downloadJson,
+  downloadTxt,
+  validateDates,
+} from "../utils";
 import { ResultView } from "../view/ResultView";
 
 export class ResultController {
@@ -47,9 +53,9 @@ export class ResultController {
       this.handleFilterChange()
     );
 
-    const downloadBtnGroup = $(".download-btn-group") as HTMLButtonElement;
+    const downloadBtn = $(".download-btn") as HTMLButtonElement;
     const downloadFormatSelectorEl = $("#download-format") as HTMLSelectElement;
-    this.resultView.bindEvent(downloadBtnGroup, "click", () => {
+    this.resultView.bindEvent(downloadBtn, "click", () => {
       const selectedFormat = downloadFormatSelectorEl.value;
       const startDate = startDateInput.value;
       const endDate = endDateInput.value;
@@ -60,7 +66,7 @@ export class ResultController {
       } else if (selectedFormat === "excel") {
         downloadExcel(data);
       } else {
-        downloadTxt(data)
+        downloadTxt(data);
       }
     });
     this.resultView.bindEvent(downloadFormatSelectorEl, "click", (e: Event) => {
@@ -68,9 +74,14 @@ export class ResultController {
     });
 
     const resultDimEl = $(".result-dim") as HTMLDivElement;
-    this.resultView.bindEvent(resultDimEl, "click", ()=> {
+    this.resultView.bindEvent(resultDimEl, "click", () => {
       this.handleCloseResult();
-    })
+    });
+
+    const closeBtn = $(".close-btn") as HTMLButtonElement;
+    this.resultView.bindEvent(closeBtn, "click", () => {
+      this.handleCloseResult();
+    });
   }
 
   private handleFilterChange() {
@@ -91,7 +102,7 @@ export class ResultController {
       );
       this.resultView.clearTrafficSummary();
       this.resultView.removeTrafficTable();
-      this.resultView.hideDownloadBtns();
+      this.resultView.hideDownloadBtn();
       return;
     }
 
