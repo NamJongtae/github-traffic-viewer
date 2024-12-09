@@ -58,8 +58,8 @@ export class ResultView extends BaseView {
       const row = document.createElement("tr");
       row.innerHTML = `
         <td>${view.date}</td>
-        <td>${view.views}</td>
-        <td>${view.unique_vistior}</td>
+        <td>${view.views.toLocaleString()}</td>
+        <td>${view.unique_visitors.toLocaleString()}</td>
       `;
       tableBody.appendChild(row);
     });
@@ -86,8 +86,8 @@ export class ResultView extends BaseView {
   }
 
   updateTrafficSummary(views: number, visitors: number) {
-    $(".views")!.textContent = views.toString();
-    $(".visitors")!.textContent = visitors.toString();
+    $(".views")!.textContent = views.toLocaleString();
+    $(".visitors")!.textContent = visitors.toLocaleString();
   }
 
   updateFilteredView(data: TrafficData[], views: number, visitors: number) {

@@ -1,7 +1,7 @@
 export interface TrafficData {
   date: string;
   views: number;
-  unique_vistior: number;
+  unique_visitors: number;
 }
 
 export interface View {

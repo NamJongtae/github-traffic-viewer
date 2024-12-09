@@ -79,7 +79,7 @@ export class FormController {
       const transformData = responseData.views.map((view) => ({
         date: new Date(view.timestamp).toISOString().split("T")[0],
         views: view.count,
-        unique_vistior: view.uniques,
+        unique_visitors: view.uniques,
       }));
 
       const mergedData = await this.localStorageModel.mergeDataWithLocalStorage(

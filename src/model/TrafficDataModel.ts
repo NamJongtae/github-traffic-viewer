@@ -52,7 +52,7 @@ export class TrafficDataModel {
         return b.views - a.views;
       } else if (sortOrder === "visitors") {
         // uniques 필드 기준 정렬
-        return b.unique_vistior - a.unique_vistior;
+        return b.unique_visitors - a.unique_visitors;
       } else {
         // 기본 날짜 정렬
         const dateA = new Date(a.date).getTime();
@@ -84,7 +84,7 @@ export class TrafficDataModel {
 
   calculateTotalTraffic(data: TrafficData[]) {
     const views = data.reduce((sum, item) => sum + item.views, 0);
-    const visitors = data.reduce((sum, item) => sum + item.unique_vistior, 0);
+    const visitors = data.reduce((sum, item) => sum + item.unique_visitors, 0);
     return { views, visitors };
   }
 }
