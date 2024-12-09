@@ -4,10 +4,11 @@ import { TrafficData } from "../types/trafficDataTypes";
 import { $, formatDate } from "../utils";
 
 export class ResultView extends BaseView {
-  renderResult(data: TrafficData[], repoName:string, bindEvents: () => void) {
+  renderResult(data: TrafficData[], repoName: string, bindEvents: () => void) {
     this.removeElement(".result");
-    this.rootEl.insertAdjacentHTML("beforeend", result);
-    this.updateTrafficDataTitle(repoName)
+    const header = $("header") as HTMLHeadingElement;
+    header.insertAdjacentHTML("afterend", result);
+    this.updateTrafficDataTitle(repoName);
     this.renderTrafficTable(data);
     this.updateLastUpdated();
     bindEvents();
@@ -100,5 +101,9 @@ export class ResultView extends BaseView {
 
   displayDownloadBtns() {
     ($(".download-btn-group") as HTMLDivElement).style.display = "flex";
+  }
+
+  closeResult() {
+    this.removeElement(".result-wrapper");
   }
 }
