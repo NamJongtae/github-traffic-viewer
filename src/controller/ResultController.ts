@@ -66,6 +66,11 @@ export class ResultController {
     this.resultView.bindEvent(downloadFormatSelectorEl, "click", (e: Event) => {
       e.stopPropagation();
     });
+
+    const resultDimEl = $(".result-dim") as HTMLDivElement;
+    this.resultView.bindEvent(resultDimEl, "click", ()=> {
+      this.handleCloseResult();
+    })
   }
 
   private handleFilterChange() {
@@ -101,5 +106,9 @@ export class ResultController {
     );
 
     this.resultView.updateFilteredView(filteredAndSortedData, views, visitors);
+  }
+
+  private handleCloseResult() {
+    this.resultView.closeResult();
   }
 }
