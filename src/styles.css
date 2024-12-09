@@ -1,15 +1,28 @@
 body {
   font-family: "Inter", sans-serif;
   width: 420px;
-  max-height: 500px;
+  height: 470px;
   overflow: auto;
   margin: 20px;
+  background-color: #fff;
 }
 
 button {
+  font-family: "Inter", sans-serif;
+  border: none;
+}
+
+footer {
+  position: absolute;
+  bottom: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.root-btn {
   padding: 12px;
   font-size: 14px;
-  font-weight: bold;
+  font-weight: 600;
   background-color: #007bff;
   color: #ffffff;
   border: none;
@@ -19,11 +32,11 @@ button {
   text-align: center;
 }
 
-button:hover {
+.root-btn:hover {
   background-color: #0056b3;
 }
 
-button:active {
+.root-btn:active {
   background-color: #003f7f;
 }
 
@@ -32,7 +45,7 @@ button:active {
   font-size: 18px;
   font-weight: bold;
   color: #34495e;
-  margin: 20px 0;
+  margin: 30px 0 20px 0;
 }
 
 .desc {
@@ -41,7 +54,7 @@ button:active {
   border: 1px solid #dfe3e8;
   border-radius: 8px;
   padding: 15px;
-  margin: 20px 0;
+  margin-bottom: 30px;
 }
 
 .desc ul {
@@ -81,14 +94,20 @@ button:active {
 }
 
 .source-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
   font-size: 12px;
-  text-align: center;
   color: #7d8c99;
   margin-top: 20px;
   font-style: italic;
 }
 
 .source-link a {
+  display: flex;
+  align-items: center;
+  gap: 3px;
   color: #007bff;
   text-decoration: none;
 }
@@ -100,6 +119,8 @@ button:active {
 .get-traffic-form,
 .load-traffic-form,
 .delete-traffic-form {
+  position: relative;
+  height: calc(100vh - 120px);
   display: flex;
   flex-direction: column;
 }
@@ -117,6 +138,13 @@ button:active {
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
+}
+
+.get-traffic-form button,
+.load-traffic-form button,
+.delete-traffic-form button {
+  position: absolute;
+  width: 100%;
 }
 
 .input-group {
@@ -189,12 +217,11 @@ button:active {
 }
 
 .submit-btn {
-  margin: 10px 0;
+  bottom: 50px;
 }
 
-.submit-btn:hover,
-.load-btn:hover {
-  background-color: #0056b3;
+.back-btn {
+  bottom: 0px;
 }
 
 .error-msg {
@@ -207,8 +234,28 @@ button:active {
   color: crimson;
 }
 
+.result-wrapper {
+  position: absolute;
+  inset: 0;
+}
+
+.result-dim {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
 .result {
-  margin-top: 30px;
+  position: fixed;
+  z-index: 99;
+  width: 380px;
+  height: 440px;
+  overflow-y: auto;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -217,7 +264,7 @@ button:active {
 
 .traffic-data-title {
   text-align: center;
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 700;
   color: #34495e;
   margin-bottom: 15px;
@@ -264,6 +311,7 @@ button:active {
   background-color: transparent;
   padding: 0;
   margin: 0 5px 0 0px;
+  color: #fff;
   font-weight: 500;
 }
 
@@ -369,10 +417,10 @@ button:active {
 @keyframes fadeIn {
   from {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translate(-50%, -30px);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
+    transform: translate(-50%, -50%);
   }
 }
