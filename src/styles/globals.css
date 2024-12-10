@@ -1,0 +1,52 @@
+body {
+  font-family: "Inter", sans-serif;
+  width: 420px;
+  height: 470px;
+  overflow: auto;
+  margin: 20px;
+  background-color: #fff;
+}
+
+button {
+  font-family: "Inter", sans-serif;
+  border: none;
+}
+
+footer {
+  position: absolute;
+  bottom: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.root-btn {
+  padding: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  background-color: #007bff;
+  color: #ffffff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+  text-align: center;
+}
+
+.root-btn:hover {
+  background-color: #0056b3;
+}
+
+.root-btn:active {
+  background-color: #003f7f;
+}
+
+.a11y {
+  clip: rect(1px, 1px, 1px, 1px);
+  clip-path: inset(50%);
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+}

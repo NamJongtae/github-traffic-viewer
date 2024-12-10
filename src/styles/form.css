@@ -1,0 +1,116 @@
+.get-traffic-form,
+.load-traffic-form,
+.delete-traffic-form {
+  position: relative;
+  height: calc(100vh - 120px);
+  display: flex;
+  flex-direction: column;
+}
+
+.get-traffic-form label,
+.load-traffic-form label,
+.delete-traffic-form label {
+  font-size: 12px;
+  margin: 10px 0 5px;
+}
+
+.get-traffic-form input,
+.load-traffic-form input,
+.delete-traffic-form input {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.get-traffic-form button,
+.load-traffic-form button,
+.delete-traffic-form button {
+  position: absolute;
+  width: 100%;
+}
+
+.input-group {
+  position: relative;
+  margin-bottom: 10px;
+}
+
+.input-group input {
+  width: 100%;
+  padding-right: 2.5em;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+.clear-btn {
+  display: none;
+}
+
+.input-group input:not(:placeholder-shown) + .clear-btn {
+  display: block;
+}
+
+.input-group .clear-btn {
+  position: absolute;
+  right: 0.5em;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  width: 20px;
+  height: 20px;
+}
+
+.input-group .clear-btn img {
+  width: 11px;
+  height: 11px;
+  pointer-events: none;
+}
+
+#repo-selector {
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 10px 15px;
+  color: #333;
+  background-color: #f9f9f9;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 12px;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+#repo-selector:hover {
+  border-color: #888;
+}
+
+#repo-selector:focus {
+  border-color: #555;
+  box-shadow: 0 0 5px rgba(85, 85, 85, 0.5);
+  outline: none;
+}
+
+#repo-selector option {
+  padding: 5px;
+  color: #333;
+  background-color: #fff;
+}
+
+.submit-btn {
+  bottom: 50px;
+}
+
+.back-btn {
+  bottom: 0px;
+}
+
+.error-msg {
+  margin-top: 8px;
+}
+
+.error-msg {
+  font-size: 12px;
+  color: crimson;
+}
