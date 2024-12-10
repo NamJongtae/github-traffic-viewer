@@ -82,4 +82,3 @@ To use this extension, you need to generate a GitHub Personal Access Token. Foll
 ## privacy-policy
 
 You can review the full [privacy policy](https://namjongtae.github.io/github-traffic-viewer/privacy_policy_EN) on the Privacy Policy page.
-여기서 How To Generate AccessToken ?
