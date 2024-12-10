@@ -25,8 +25,8 @@ export const mainMenu = `
 
       <div class="button-group">
         <button class="root-btn get-traffic-btn">Get New Traffic Data</button>
-        <button class="root-btn load-traffic-btn">Load To Storage Traffic Data</button>
-        <button class="root-btn delete-traffic-btn">Delete Storage Traffic Data</button>
+        <button class="root-btn load-traffic-btn">Load To Stored Traffic Data</button>
+        <button class="root-btn delete-traffic-btn">Delete Stored Traffic Data</button>
         <button class="root-btn docs-btn">Go To Docs</button>
       </div>
     </div>
@@ -66,7 +66,7 @@ export const loadTrafficForm = `
       <select id="repo-selector" required>
         <option value="" disabled selected>Select Repository</option>
       </select>
-    <button type="submit" class="root-btn submit-btn">Load Storage Data</button>
+    <button type="submit" class="root-btn submit-btn">Load Stored Traffic Data</button>
     <button type="button" class="root-btn back-btn">Back</button>
   </form>
 `;
@@ -77,7 +77,7 @@ export const deleteTrafficForm = `
       <select id="repo-selector" required>
         <option value="" disabled selected>Select Repository</option>
       </select>
-    <button type="submit" class="root-btn submit-btn">Delete Storage Data</button>
+    <button type="submit" class="root-btn submit-btn">Delete Stored Traffic Data</button>
     <button type="button" class="root-btn back-btn">Back</button>
   </form>
 `;
