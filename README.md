@@ -1,5 +1,5 @@
 <div align="end">
-  Langeage : <a href="https://github.com/NamJongtae/github-traffic-viewer/blob/dev/README.md">English</a> | <a href="https://github.com/NamJongtae/github-traffic-viewer/blob/dev/README_KR.md">한국어</a> 
+  Langeage : <a href="https://namjongtae.github.io/github-traffic-viewer">English</a> | <a href="https://namjongtae.github.io/github-traffic-viewer/README_KR">한국어</a> 
 </div>
 
 # github-traffic-viewer
@@ -81,5 +81,5 @@ To use this extension, you need to generate a GitHub Personal Access Token. Foll
 
 ## privacy-policy
 
-You can review the full [privacy policy](https://github.com/NamJongtae/github-traffic-viewer/blob/dev/privacy_policy_EN.md) on the Privacy Policy page.
+You can review the full [privacy policy](https://namjongtae.github.io/github-traffic-viewer/privacy_policy_EN) on the Privacy Policy page.
 여기서 How To Generate AccessToken ?

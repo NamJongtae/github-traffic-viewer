@@ -1,5 +1,5 @@
 <div align="end">
-  Langeage : <a href="https://github.com/NamJongtae/github-traffic-viewer/blob/dev/README.md">English</a> | <a href="https://github.com/NamJongtae/github-traffic-viewer/blob/dev/README_KR.md">한국어</a> 
+  Langeage : <a href="https://namjongtae.github.io/github-traffic-viewer">English</a> | <a href="https://namjongtae.github.io/github-traffic-viewer/README_KR">한국어</a>
 </div>
 
 # GitHub Traffic Viewer
@@ -67,4 +67,4 @@ Chrome 웹 스토어에서 [GitHub Traffic Viewer]()를 다운로드할 수 있�
 > ⚠️ **주의사항**: 액세스 토큰을 비공개로 유지하고 다른 사람과 공유하지 마세요. 토큰이 유출된 경우, 즉시 GitHub의 개발자 설정에서 토큰을 취소하고 새 토큰을 생성하세요.
 
 ## 개인정보처리방침
-전체 [개인정보처리방침](https://github.com/NamJongtae/github-traffic-viewer/blob/dev/privacy_policy_KR.md)은 Privacy Policy 페이지에서 확인할 수 있습니다.
+전체 [개인정보처리방침](https://namjongtae.github.io/github-traffic-viewer/privacy_policy_KR)은 Privacy Policy 페이지에서 확인할 수 있습니다.
