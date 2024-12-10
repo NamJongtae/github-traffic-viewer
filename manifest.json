@@ -3,10 +3,13 @@
   "name": "GitHub Traffic Viewer",
   "version": "1.0",
   "description": "Displays traffic data for a GitHub repository",
-  "permissions": ["storage", "activeTab"],
+  "permissions": ["storage", "alarms"],
   "host_permissions": ["https://api.github.com/*"],
+  "background": {
+    "service_worker": "background.js"
+  },
   "action": {
     "default_popup": "popup.html",
-    "default_icon": "src/public/icons/icon.png"
+    "default_icon": "src/public/icons/logo_icon.png"
   }
 }
