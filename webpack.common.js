@@ -8,7 +8,7 @@ const BundleAnalyzerPlugin =
 const LicenseCheckerWebpackPlugin = require('license-checker-webpack-plugin');
 
 module.exports = {
-  entry: "./index.ts",
+  entry: "./popup.ts",
   output: {
     filename: "popup.js",
     path: path.resolve(__dirname, "dist"),
@@ -39,7 +39,7 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: "./index.html",
+      template: "./popup.html",
       filename: path.join(__dirname, "dist/popup.html"),
     }),
     new MiniCssExtractPlugin({
