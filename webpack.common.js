@@ -5,6 +5,7 @@ const CopyWebpackPlugin = require("copy-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const BundleAnalyzerPlugin =
   require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
+const LicenseCheckerWebpackPlugin = require('license-checker-webpack-plugin');
 
 module.exports = {
   entry: "./index.ts",
@@ -42,7 +43,7 @@ module.exports = {
       filename: path.join(__dirname, "dist/popup.html"),
     }),
     new MiniCssExtractPlugin({
-      filename: "src/styles.css",
+      filename: "src/popup.css",
     }),
     new CopyWebpackPlugin({
       patterns: [
@@ -54,5 +55,8 @@ module.exports = {
     }),
     new BundleAnalyzerPlugin(),
     new CleanWebpackPlugin(),
+    new LicenseCheckerWebpackPlugin({
+      outputFilename: 'LICENSES.txt',
+    }),
   ],
 };
