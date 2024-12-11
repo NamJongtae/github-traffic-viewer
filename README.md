@@ -11,8 +11,9 @@ A Chrome extension that leverages the GitHub API to fetch and display traffic st
 Since GitHub's traffic data is **only retained for 2 weeks**, this extension **prevents data loss by securely storing historical statistics**. This allows users to analyze long-term trends and gain deeper insights into their repository's performance.
 
 ## Features
-
-- GitHub Traffic provides data for only the past **14 days**.
+- Retrieve GitHub traffic data to display **views and uniquevisitors**.
+- The retrieved data can be filtered by **date format** and sorted by **oldest, newest, views, or unique visitors**.
+- Provide options to download the retrieved data in **JSON, EXCEL, and TXT** formats.
 - Fetched data is stored to **prevent data loss**.
 - You can save data for **up to 20 repositories**.
 - Stored data will be kept for **up to 2 years** and then automatically deleted.
@@ -23,7 +24,7 @@ Since GitHub's traffic data is **only retained for 2 weeks**, this extension **p
 
 ## Install
 
-You can download [GitHub Traffic Viewer]() from the Chrome Web Store.
+You can download [GitHub Traffic Viewer](https://chromewebstore.google.com/detail/github-traffic-viewer/mncijnlfljjhdgmabakgdjofiakliaca) from the Chrome Web Store.(Currently pending approval; the link will be updated once approval is complete.)
 
 ## How To Use ?
 
