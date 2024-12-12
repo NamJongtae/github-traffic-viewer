@@ -1,5 +1,5 @@
 <div align="end">
-  Langeage : <a href="https://namjongtae.github.io/github-traffic-viewer">English</a> | <a href="https://namjongtae.github.io/github-traffic-viewer/README_KR">한국어</a>
+  Langeage : <a href="https://namjongtae.github.io/github-traffic-viewer">English</a> | 한국어
 </div>
 
 # GitHub Traffic Viewer
@@ -11,10 +11,11 @@ GitHub의 트래픽 데이터는 **2주간만 보존**되기 때문에, 이 확�
 
 ## 기능
 - Github traffic data를 조회하여 **views, unique_visitors** 데이터를 출력합니다.
+- **테이블, 차트** 형식으로 데이터를 출력 할 수 있습니다.
 - 조회한 데이터를 **날짜 형식**으로 필터링 가능하며, **오래된순, 최신순, views순, unique_visitors순**으로 정렬할 수 있습니다.
 - 조회한 데이터를 **JSON, EXCEL, TXT** 형식으로 다운로드할 수 있습니다.
 - 가져온 데이터를 저장하여 **데이터 손실을 방지**합니다.
-- **최대 20개의 저장소** 데이터를 저장할 수 있습니다.
+- **최대 10개의 레포지토리** 데이터를 저장할 수 있습니다.
 - 저장된 데이터는 **최대 2년간** 유지되며 이후 자동 삭제됩니다.
 
 ## 중요한 참고 사항

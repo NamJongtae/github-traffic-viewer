@@ -1,5 +1,5 @@
 <div align="end">
-  Langeage : <a href="https://namjongtae.github.io/github-traffic-viewer">English</a> | <a href="https://namjongtae.github.io/github-traffic-viewer/README_KR">한국어</a> 
+  Langeage : English | <a href="https://namjongtae.github.io/github-traffic-viewer/README_KR">한국어</a> 
 </div>
 
 # github-traffic-viewer
@@ -12,10 +12,11 @@ Since GitHub's traffic data is **only retained for 2 weeks**, this extension **p
 
 ## Features
 - Retrieve GitHub traffic data to display **views and uniquevisitors**.
+- Data can be displayed in **table or chart** format.
 - The retrieved data can be filtered by **date format** and sorted by **oldest, newest, views, or unique visitors**.
 - Provide options to download the retrieved data in **JSON, EXCEL, and TXT** formats.
 - Fetched data is stored to **prevent data loss**.
-- You can save data for **up to 20 repositories**.
+- You can save data for **up to 10 repositories**.
 - Stored data will be kept for **up to 2 years** and then automatically deleted.
 
 ## Important Notes
