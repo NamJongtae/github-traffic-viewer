@@ -95,6 +95,14 @@ export const trafficTable = `
   </table>
 `;
 
+export const trafficChart = `
+<div class="traffic-chart">
+  <div class="chart-wrapper">
+    <canvas class="chart-canvas"></canvas>
+  </div>
+</div>
+`;
+
 export const result = `
 <div class="result-wrapper">
   <div class="result-dim" role="button" aria-label="close result"></div>
@@ -116,6 +124,8 @@ export const result = `
     <p class="total-visitors">
       Total Visitors : <span class="visitors"></span>
     </p>
+
+    <button class="root-btn change-view-btn" type="button" data-viewtype="table"">Chart View</button>
 
     <div class="filters">
       <div class="date-filte">
