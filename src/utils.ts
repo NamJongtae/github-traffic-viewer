@@ -14,6 +14,9 @@ export function generateFormErrorMsg(error: Error) {
     message = "Please check your Access Token.";
   } else if (error.message.includes("404")) {
     message = "Please check your GitHub username or repository name.";
+  } else if (error.message.includes("maximum")) {
+    message =
+      "The maximum repository storage limit has been exceeded. (Maximum: 10)\nPlease delete stored data and try again.";
   }
 
   return message;
