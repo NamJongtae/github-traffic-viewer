@@ -46,6 +46,7 @@ export class ResultController {
       this.handleFilterChange()
     );
     const today = new Date().toISOString().split("T")[0];
+    startDateInput.setAttribute("max", today);
     endDateInput.setAttribute("max", today);
 
     const sortOrderSelect = $("#sort-order") as HTMLSelectElement;
@@ -78,6 +79,11 @@ export class ResultController {
       this.handleCloseResult();
     });
 
+    const changeViewBtn = $(".change-view-btn") as HTMLButtonElement;
+    this.resultView.bindEvent(changeViewBtn, "click", () => {
+      this.handleChangeView();
+    });
+
     const closeBtn = $(".close-btn") as HTMLButtonElement;
     this.resultView.bindEvent(closeBtn, "click", () => {
       this.handleCloseResult();
@@ -90,7 +96,6 @@ export class ResultController {
     const sortOrder = ($("#sort-order") as HTMLSelectElement).value;
 
     this.resultView.removeErrorMsg("filter");
-    this.resultView.removeNoDataMessage();
 
     const isValidDate = validateDates(startDate, endDate);
 
@@ -102,6 +107,7 @@ export class ResultController {
       );
       this.resultView.clearTrafficSummary();
       this.resultView.removeTrafficTable();
+      this.resultView.removeTrafficChart();
       this.resultView.hideDownloadBtn();
       return;
     }
@@ -117,6 +123,20 @@ export class ResultController {
     );
 
     this.resultView.updateFilteredView(filteredAndSortedData, views, visitors);
+  }
+
+  private handleChangeView() {
+    const startDate = ($("#start-date") as HTMLInputElement).value;
+    const endDate = ($("#end-date") as HTMLInputElement).value;
+    const sortOrder = ($("#sort-order") as HTMLSelectElement).value;
+    const filteredAndSortedData =
+      this.trafficDataModel.getFilteredAndSortedData(
+        startDate,
+        endDate,
+        sortOrder
+      );
+
+    this.resultView.changeView(filteredAndSortedData);
   }
 
   private handleCloseResult() {
