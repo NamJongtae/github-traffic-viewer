@@ -28,7 +28,6 @@
 
 .result::-webkit-scrollbar {
   width: 8px;
-
 }
 
 .result::-webkit-scrollbar-thumb {
@@ -110,11 +109,16 @@
   font-weight: 500;
 }
 
+.change-view-btn {
+  padding: 6px 12px;
+  font-size: 12px;
+}
+
 .filters {
   display: flex;
   justify-content: space-between;
   gap: 10px;
-  margin: 20px 0 8px 0;
+  margin: 10px 0 8px 0;
 }
 
 .filter-error-msg {
@@ -171,6 +175,31 @@
 .traffic-table tr:hover td {
   background-color: #f9f9f9;
   transition: background-color 0.3s ease;
+}
+
+.traffic-chart {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.chart-wrapper {
+  width: max-content;
+  min-width: 370px;
+  height: 370px;
+}
+
+.traffic-chart::-webkit-scrollbar {
+  height: 8px;
+}
+
+.traffic-chart::-webkit-scrollbar-thumb {
+  background: #007bff;
+  border-radius: 10px;
+}
+
+.traffic-chart::-webkit-scrollbar-track {
+  background: #b2d4f8;
+  border-radius: 10px;
 }
 
 .close-btn {
