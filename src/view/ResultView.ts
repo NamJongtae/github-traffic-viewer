@@ -1,9 +1,12 @@
 import { BaseView } from "./BaseView";
-import { result, trafficTable } from "../template";
+import { result, trafficChart, trafficTable } from "../template";
 import { TrafficData } from "../types/trafficDataTypes";
 import { $, formatDate } from "../utils";
+import { ChartManager } from "../ChartManager";
 
 export class ResultView extends BaseView {
+  chartManager = new ChartManager();
+
   renderResult(data: TrafficData[], repoName: string, bindEvents: () => void) {
     this.removeElement(".result");
     const header = $("header") as HTMLHeadingElement;
@@ -35,10 +38,11 @@ export class ResultView extends BaseView {
     }
   }
 
-  renderTrafficTable(data: TrafficData[]) {
-    this.removeElement(".traffic-table");
+  renderTrafficView(type: "table" | "chart", data: TrafficData[]) {
+    this.removeElement(`.traffic-${type}`);
     const hasData = data && data.length > 0;
 
+    this.removeNoDataMessage();
     this.displayDownloadBtn();
 
     if (!hasData) {
@@ -47,9 +51,41 @@ export class ResultView extends BaseView {
       return;
     }
 
-    this.removeElement(".no-data");
-    $(".result")!.insertAdjacentHTML("beforeend", trafficTable);
-    this.updateTableBody(data);
+    $(".result")!.insertAdjacentHTML(
+      "beforeend",
+      type === "table" ? trafficTable : trafficChart
+    );
+    if (type === "table") {
+      this.updateTableBody(data);
+    } else {
+      this.chartManager.createChart(data);
+    }
+  }
+
+  renderTrafficTable(data: TrafficData[]) {
+    this.renderTrafficView("table", data);
+  }
+
+  renderTrafficChart(data: TrafficData[]) {
+    this.renderTrafficView("chart", data);
+  }
+
+  changeView(data: TrafficData[]) {
+    const changeViewBtn = $(".change-view-btn") as HTMLButtonElement;
+
+    let viewType = changeViewBtn.dataset.viewtype;
+
+    if (viewType === "table") {
+      changeViewBtn.dataset.viewtype = "chart";
+      this.removeElement(".traffic-table");
+      this.renderTrafficChart(data);
+      changeViewBtn.textContent = "Table View";
+    } else {
+      changeViewBtn.dataset.viewtype = "table";
+      this.removeElement(".traffic-chart");
+      this.renderTrafficTable(data);
+      changeViewBtn.textContent = "Chart View";
+    }
   }
 
   updateTableBody(data: TrafficData[]) {
@@ -66,14 +102,18 @@ export class ResultView extends BaseView {
   }
 
   renderNoDataMessage() {
-    $(".filters")!.insertAdjacentHTML(
-      "afterend",
+    $(".close-btn")!.insertAdjacentHTML(
+      "beforebegin",
       `<div class="no-data">No data available.</div>`
     );
   }
 
   removeTrafficTable() {
     this.removeElement(".traffic-table");
+  }
+
+  removeTrafficChart() {
+    this.removeElement(".traffic-chart");
   }
 
   removeNoDataMessage() {
@@ -91,8 +131,14 @@ export class ResultView extends BaseView {
   }
 
   updateFilteredView(data: TrafficData[], views: number, visitors: number) {
+    const viewType = ($(".change-view-btn") as HTMLButtonElement).dataset
+      .viewtype;
     this.updateTrafficSummary(views, visitors);
-    this.renderTrafficTable(data);
+    if (viewType === "table") {
+      this.renderTrafficTable(data);
+    } else {
+      this.renderTrafficChart(data);
+    }
   }
 
   hideDownloadBtn() {
