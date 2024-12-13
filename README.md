@@ -1,4 +1,4 @@
-<div align="end">
+  <div align="end">
   Langeage : English | <a href="https://namjongtae.github.io/github-traffic-viewer/README_KR">한국어</a> 
 </div>
 
@@ -11,6 +11,7 @@ A Chrome extension that leverages the GitHub API to fetch and display traffic st
 Since GitHub's traffic data is **only retained for 2 weeks**, this extension **prevents data loss by securely storing historical statistics**. This allows users to analyze long-term trends and gain deeper insights into their repository's performance.
 
 ## Features
+
 - Retrieve GitHub traffic data to display **views and uniquevisitors**.
 - Data can be displayed in **table or chart** format.
 - The retrieved data can be filtered by **date format** and sorted by **oldest, newest, views, or unique visitors**.
@@ -25,7 +26,7 @@ Since GitHub's traffic data is **only retained for 2 weeks**, this extension **p
 
 ## Install
 
-You can download [GitHub Traffic Viewer](https://chromewebstore.google.com/detail/github-traffic-viewer/mncijnlfljjhdgmabakgdjofiakliaca) from the Chrome Web Store.(Currently pending approval; the link will be updated once approval is complete.)
+You can download [GitHub Traffic Viewer](https://chromewebstore.google.com/detail/github-traffic-viewer/mncijnlfljjhdgmabakgdjofiakliaca) from the Chrome Web Store.
 
 ## How To Use ?
 
