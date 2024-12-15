@@ -2,7 +2,8 @@ import { BaseView } from "./BaseView";
 import {
   deleteTrafficForm,
   getTrafficForm,
-  loadTrafficForm
+  loadTrafficForm,
+  uploadTrafficForm,
 } from "../template";
 import { $ } from "../utils";
 
@@ -23,6 +24,12 @@ export class FormView extends BaseView {
     this.removeElement(".main-menu");
     $("header")!.insertAdjacentHTML("afterend", deleteTrafficForm);
     bindEvent();
+  }
+
+  renderUploadTrafficFrom(bindEvents: () => void) {
+    this.removeElement(".main-menu");
+    $("header")!.insertAdjacentHTML("afterend", uploadTrafficForm);
+    bindEvents();
   }
 
   createRepoListOption(repoList: { lastUpdated: string; repoName: string }[]) {
@@ -53,6 +60,13 @@ export class FormView extends BaseView {
       .forEach((option) => option.remove());
 
     repoSelector.value = repoSelector.options[0].value;
+  }
+
+  resetUplaodForm() {
+    const uploadForm = $(".upload-traffic-form") as HTMLFormElement;
+    uploadForm.reset();
+    const clearBtn = $(".clear-btn") as HTMLButtonElement;
+    clearBtn.style.display = "none";
   }
 
   toggleClearButton(input: HTMLInputElement, button: HTMLButtonElement) {
