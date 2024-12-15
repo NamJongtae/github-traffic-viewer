@@ -111,3 +111,80 @@ export function downloadTxt(data: TrafficData[]) {
   a.click();
   URL.revokeObjectURL(url);
 }
+
+export async function readJsonFile(file: File): Promise<TrafficData[]> {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      try {
+        const jsonData = JSON.parse(
+          e.target?.result as string
+        ) as TrafficData[];
+        resolve(jsonData);
+      } catch (error) {
+        reject(error);
+      }
+    };
+    reader.onerror = reject;
+    reader.readAsText(file);
+  });
+}
+
+export async function readExcelFile(file: File): Promise<TrafficData[]> {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      try {
+        const data = new Uint8Array(e.target?.result as ArrayBuffer);
+        const workbook = XLSX.read(data, { type: "array" });
+        const sheetName = workbook.SheetNames[0];
+        const jsonData = XLSX.utils.sheet_to_json(
+          workbook.Sheets[sheetName]
+        ) as TrafficData[];
+        resolve(jsonData);
+      } catch (error) {
+        reject(error);
+      }
+    };
+    reader.onerror = reject;
+    reader.readAsArrayBuffer(file);
+  });
+}
+
+export async function readTxtFile(file: File): Promise<any[]> {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      try {
+        const content = e.target?.result as string;
+
+        const blocks = content
+          .split("\n")
+          .map((line) => line.trim()) // 공백 제거
+          .filter((line) => line !== ""); // 빈 줄 제거
+
+        let currentObject = ""; // 현재 JSON 블록 저장
+        const jsonData = [];
+
+        for (const line of blocks) {
+          currentObject += line;
+          if (line === "}") {
+            // 객체 종료 시점
+            jsonData.push(JSON.parse(currentObject));
+            currentObject = "";
+          }
+        }
+
+        resolve(jsonData);
+      } catch (error) {
+        reject(
+          new Error(
+            "Failed to parse the text file. Ensure it has valid JSON objects."
+          )
+        );
+      }
+    };
+    reader.onerror = reject;
+    reader.readAsText(file);
+  });
+}
