@@ -34,10 +34,15 @@ export class MainMenuController {
       this.handleLoadTrafficBtnClick()
     );
 
-    const deleteTrafficBtn = $(".delete-traffic-btn") as HTMLButtonElement
-    this.mainMenuView.bindEvent(deleteTrafficBtn, "click", ()=> {
+    const deleteTrafficBtn = $(".delete-traffic-btn") as HTMLButtonElement;
+    this.mainMenuView.bindEvent(deleteTrafficBtn, "click", () => {
       this.handleDeleteTrafficBtnClick();
-    })
+    });
+
+    const uploadTrafficBtn = $(".upload-traffic-btn") as HTMLButtonElement;
+    this.mainMenuView.bindEvent(uploadTrafficBtn, "click", () => {
+      this.handleUploadTrafficBtnClick();
+    });
 
     const goToDocsBtn = $(".docs-btn") as HTMLButtonElement;
     this.mainMenuView.bindEvent(goToDocsBtn, "click", () => {
@@ -63,5 +68,9 @@ export class MainMenuController {
 
   private handleDeleteTrafficBtnClick() {
     this.eventBus.publish("initializeDeleteTrafficForm");
+  }
+
+  private handleUploadTrafficBtnClick() {
+    this.eventBus.publish("initializeUploadTrafficForm");
   }
 }
