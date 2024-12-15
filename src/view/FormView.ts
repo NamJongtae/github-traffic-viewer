@@ -2,26 +2,26 @@ import { BaseView } from "./BaseView";
 import {
   deleteTrafficForm,
   getTrafficForm,
-  loadTrafficForm,
+  loadTrafficForm
 } from "../template";
 import { $ } from "../utils";
 
 export class FormView extends BaseView {
   renderGetTrafficForm(bindEvents: () => void) {
     this.removeElement(".main-menu");
-    $(".title")!.insertAdjacentHTML("afterend", getTrafficForm);
+    $("header")!.insertAdjacentHTML("afterend", getTrafficForm);
     bindEvents();
   }
 
   renderLoadTrafficForm(bindEvents: () => void) {
     this.removeElement(".main-menu");
-    $(".title")!.insertAdjacentHTML("afterend", loadTrafficForm);
+    $("header")!.insertAdjacentHTML("afterend", loadTrafficForm);
     bindEvents();
   }
 
   renderDeleteTrafficForm(bindEvent: () => void) {
     this.removeElement(".main-menu");
-    $(".title")!.insertAdjacentHTML("afterend", deleteTrafficForm);
+    $("header")!.insertAdjacentHTML("afterend", deleteTrafficForm);
     bindEvent();
   }
 
@@ -46,9 +46,7 @@ export class FormView extends BaseView {
   }
 
   resetRepoSelector() {
-    const repoSelector = $(
-      "#repo-selector"
-    ) as HTMLSelectElement;
+    const repoSelector = $("#repo-selector") as HTMLSelectElement;
 
     Array.from(repoSelector.options)
       .filter((option) => option.value !== "")

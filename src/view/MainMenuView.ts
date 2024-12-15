@@ -4,7 +4,7 @@ import { $ } from "../utils";
 
 export class MainMenuView extends BaseView {
   renderMainMenu(bindEvents: () => void) {
-    $(".title")!.insertAdjacentHTML("afterend", mainMenu);
+    $("header")!.insertAdjacentHTML("afterend", mainMenu);
     bindEvents();
   }
 }
