@@ -4,11 +4,17 @@
 
 # github-traffic-viewer
 
+<div align="center">
+   <img src="https://github.com/user-attachments/assets/7958ed14-f0ee-44ce-ba33-efd9e819665b" alt="thumbnail" width=800/>
+</div>
+
 ## Introduction
 
 A Chrome extension that leverages the GitHub API to fetch and display traffic statistics for repositories, focusing on providing users with valuable insights into **views** and **unique visitors**.
 
 Since GitHub's traffic data is **only retained for 2 weeks**, this extension **prevents data loss by securely storing historical statistics**. This allows users to analyze long-term trends and gain deeper insights into their repository's performance.
+
+<br/>
 
 ## Features
 
@@ -16,17 +22,24 @@ Since GitHub's traffic data is **only retained for 2 weeks**, this extension **p
 - Data can be displayed in **table or chart** format.
 - The retrieved data can be filtered by **date format** and sorted by **oldest, newest, views, or unique visitors**.
 - Provide options to download the retrieved data in **JSON, EXCEL, and TXT** formats.
+- Traffic data in **JSON, EXCEL, or TXT** format can be uploaded and stored.
 - Fetched data is stored to **prevent data loss**.
 - You can save data for **up to 10 repositories**.
 - Stored data will be kept for **up to 2 years** and then automatically deleted.
+
+<br/>
 
 ## Important Notes
 
 **🚨 Uninstalling this extension will delete all stored data!**
 
+<br/>
+
 ## Install
 
 You can download [GitHub Traffic Viewer](https://chromewebstore.google.com/detail/github-traffic-viewer/mncijnlfljjhdgmabakgdjofiakliaca) from the Chrome Web Store.
+
+<br/>
 
 ## How To Use ?
 
@@ -47,6 +60,61 @@ You can download [GitHub Traffic Viewer](https://chromewebstore.google.com/detai
 1. Click on the Delete Stored Traffic Data menu.
 2. Select the repository you want to delete and click the Delete Stored Traffic Data button.
 3. A confirmation message will appear once the data has been successfully deleted.
+
+### Upload and Store Traffic Data
+
+1. Click on the **Upload Traffic Data** menu.
+2. Select the repository name and the file to upload (.xlsx, .xls, .json, .txt).
+3. Once the upload is complete, a confirmation message will appear.
+
+**Structure of Upload Files**
+
+The structure of the upload file must match the structure of the downloaded traffic data.
+<br/>
+(For `.json` and `.txt` files, whitespace and indentation do not need to match.)
+
+The data structure is as follows:
+
+**JSON**
+
+```json
+[
+  {
+    "date": "2024-12-13",
+    "unique_visitors": 29,
+    "views": 30
+  },
+  {
+    "date": "2024-12-14",
+    "unique_visitors": 19,
+    "views": 0
+  }
+]
+```
+
+**EXCEL**
+| date | views | unique_visitors |
+|------------|-------|-----------------|
+| 2024-12-13 | 29 | 30 |
+| 2024-12-14 | 0 | 19 |
+
+**TXT**
+
+```txt
+{
+   "date": "2024-12-13",
+   "unique_visitors": 29,
+   "views": 30
+}
+
+{
+   "date": "2024-12-14",
+   "unique_visitors": 19,
+   "views": 0
+}
+```
+
+<br/>
 
 ## How To Generate Access Token?
 
@@ -82,6 +150,8 @@ To use this extension, you need to generate a GitHub Personal Access Token. Foll
 
 > ⚠️ **Note**: Keep your access token private and avoid sharing it with others. If your token is compromised, immediately revoke it via GitHub's Developer Settings and create a new one.
 
+<br/>
+
 ## privacy-policy
 
-You can review the full [privacy policy](https://namjongtae.github.io/github-traffic-viewer/privacy_policy_EN) on the Privacy Policy page.
+You can review the full privacy policy on the [Privacy Policy](https://namjongtae.github.io/github-traffic-viewer/privacy_policy_EN) page.
