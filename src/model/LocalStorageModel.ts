@@ -5,20 +5,46 @@ export class LocalStorageModel {
   private readonly REPO_LIST_KEY = "repoList";
 
   // 레포지토리 이름 관리
-  private async addRepoToList(repoName: string): Promise<void> {
-    const repoList = await this.getRepoList();
-    const isExist = repoList.some((data) => data.repoName === repoName);
-    if (!isExist) {
+  async addRepoToList(
+    repoName: string,
+    updatedLastUpdated: boolean = true
+  ): Promise<void> {
+    let repoList = await this.getRepoList();
+    const repoData = repoList.find((data) => data.repoName === repoName);
+    const now = new Date().toISOString();
+
+    // 기존 레포데이터가 존재
+    if (repoData) {
+      if (updatedLastUpdated) {
+        await this.updatedLastUpdated(repoName);
+      }
+    } else {
+      // 기존 레포데이터 존재 x
       if (repoList.length >= 10) {
         throw new Error(
           "The maximum repository storage limit has been exceeded."
         );
       }
-      const now = new Date().toISOString();
-      const data = { lastUpdated: now, repoName };
+      const data = { repoName, lastUpdated: now };
       repoList.push(data);
       chrome.storage.local.set({ [this.REPO_LIST_KEY]: repoList });
     }
+  }
+
+  // 레포지토리 리스트 lastUpdated 업데이트
+  private async updatedLastUpdated(repoName: string) {
+    let repoList = await this.getRepoList();
+    const now = new Date().toISOString();
+
+    repoList = repoList.map((data) => {
+      if (data.repoName === repoName) {
+        return { ...data, lastUpdated: now };
+      } else {
+        return data;
+      }
+    });
+
+    chrome.storage.local.set({ [this.REPO_LIST_KEY]: repoList });
   }
 
   private async removeRepoFromList(repoName: string): Promise<void> {
@@ -48,11 +74,6 @@ export class LocalStorageModel {
   // 날짜별로 데이터 저장
   async saveToLocalStorage(repoName: string, date: string, data: TrafficData) {
     const key = this.getStorageKey(repoName, date);
-    try {
-      await this.addRepoToList(repoName); // 저장할 때 레포 이름 추가
-    } catch (error) {
-      throw error;
-    }
     chrome.storage.local.set({ [key]: data }, () => {
       console.log(`Data saved for ${repoName} on ${date}`);
     });
@@ -180,10 +201,7 @@ export class LocalStorageModel {
     });
   }
 
-  async saveTrafficData(
-    repoName: string,
-    data: TrafficData[]
-  ): Promise<void> {
+  async saveTrafficData(repoName: string, data: TrafficData[]): Promise<void> {
     if (!Array.isArray(data) || data.length === 0) {
       throw new Error(
         "Invalid JSON format. Expected an array of traffic data."
@@ -218,6 +236,7 @@ export class LocalStorageModel {
 
       try {
         await this.saveToLocalStorage(repoName, date, item);
+        await this.addRepoToList(repoName, false);
       } catch (error) {
         console.error(`Failed to save data for ${repoName} on ${date}:`, error);
       }
