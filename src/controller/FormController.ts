@@ -2,7 +2,14 @@ import { EventBus } from "../EventBus";
 import { LocalStorageModel } from "../model/LocalStorageModel";
 import { TrafficDataModel } from "../model/TrafficDataModel";
 import { EventMap } from "../types/EventMap";
-import { $, generateFormErrorMsg } from "../utils";
+import { TrafficData } from "../types/trafficDataTypes";
+import {
+  $,
+  generateFormErrorMsg,
+  readExcelFile,
+  readJsonFile,
+  readTxtFile,
+} from "../utils";
 import { FormView } from "../view/FormView";
 
 export class FormController {
@@ -24,6 +31,9 @@ export class FormController {
     });
     this.eventBus.subscribe("initializeDeleteTrafficForm", () => {
       this.initializeDeleteTrafficForm();
+    });
+    this.eventBus.subscribe("initializeUploadTrafficForm", () => {
+      this.initializeUploadTrafficForm();
     });
   }
 
@@ -219,10 +229,104 @@ export class FormController {
     }
   }
 
+  private bindUploadTrafficForm() {
+    const form = $(".upload-traffic-form") as HTMLFormElement;
+    this.formView.bindEvent(form, "submit", (e) =>
+      this.handleUploadFormSubmit(e)
+    );
+
+    const repoNameInput = $("#repo-name") as HTMLInputElement;
+    this.formView.bindEvent(repoNameInput, "input", (event) => {
+      const input = event.target as HTMLInputElement;
+      const clearBtn = input.nextElementSibling as HTMLButtonElement;
+      if (clearBtn) {
+        this.bindInputClearEvents(input, clearBtn);
+      }
+    });
+
+    const clearBtn = repoNameInput.nextElementSibling as HTMLButtonElement;
+    this.formView.toggleClearButton(repoNameInput, clearBtn);
+
+    const backBtn = $(".back-btn") as HTMLButtonElement;
+    this.formView.bindEvent(backBtn, "click", () =>
+      this.handleBackButtonClick()
+    );
+  }
+
+  private initializeUploadTrafficForm() {
+    this.formView.renderUploadTrafficFrom(() => this.bindUploadTrafficForm());
+  }
+
+  private async handleUploadFormSubmit(e: Event) {
+    e.preventDefault();
+
+    const fileInput = document.getElementById("uploader") as HTMLInputElement;
+    const repoNameInput = document.getElementById(
+      "repo-name"
+    ) as HTMLInputElement;
+
+    const repoName = repoNameInput.value.trim();
+
+    if (!repoName) {
+      alert("Please enter a repository name.");
+      this.formView.inactiveFormLoading("Upload Traffic Data");
+      return;
+    }
+
+    if (!fileInput.files || fileInput.files.length === 0) {
+      this.formView.renderErrorMsg("form", "No file selected.");
+      this.formView.inactiveFormLoading("Upload Traffic Data");
+      return;
+    }
+
+    const file = fileInput.files[0];
+    const fileType = file.name.split(".").pop()?.toLowerCase();
+
+    if (file.size > 100 * 1024) {
+      this.formView.renderErrorMsg("form", "File size exceeds 100KB limit.");
+      fileInput.value = "";
+      return;
+    }
+
+    this.formView.removeErrorMsg();
+    this.formView.activeFormLoading("Uploading Traffic Data...");
+
+    try {
+      let data: TrafficData[];
+
+      if (fileType === "json") {
+        data = await readJsonFile(file);
+      } else if (fileType === "xlsx") {
+        data = await readExcelFile(file);
+      } else if (fileType === "txt") {
+        data = await readTxtFile(file);
+      } else {
+        this.formView.renderErrorMsg("form", "File size exceeds 100KB limit.");
+        fileInput.value = "";
+        return;
+      }
+
+      await this.localStorageModel.saveUploadedTrafficData(repoName, data);
+      alert(
+        `Data has been successfully uploaded and stored for "${repoName}".`
+      );
+    } catch (error) {
+      console.error("Error processing the file:", error);
+      this.formView.renderErrorMsg(
+        "form",
+        "Failed to upload and process the file."
+      );
+    } finally {
+      this.formView.inactiveFormLoading("Upload Traffic Data");
+      this.formView.resetUplaodForm();
+    }
+  }
+
   private handleBackButtonClick() {
     this.formView.removeElement(".get-traffic-form");
     this.formView.removeElement(".load-traffic-form");
     this.formView.removeElement(".delete-traffic-form");
+    this.formView.removeElement(".upload-traffic-form");
     this.formView.removeElement(".result");
     this.eventBus.publish("initializeMainMenu");
   }
