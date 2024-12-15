@@ -180,6 +180,50 @@ export class LocalStorageModel {
     });
   }
 
+  async saveUploadedTrafficData(
+    repoName: string,
+    data: TrafficData[]
+  ): Promise<void> {
+    if (!Array.isArray(data) || data.length === 0) {
+      throw new Error(
+        "Invalid JSON format. Expected an array of traffic data."
+      );
+    }
+
+    const now = Date.now();
+    const twoYearsAgo = now - 2 * 365 * 24 * 60 * 60 * 1000;
+
+    for (const item of data) {
+      if (
+        !("date" in item) ||
+        !("views" in item) ||
+        !("unique_visitors" in item)
+      ) {
+        console.warn("Invalid data :", item);
+        continue;
+      }
+
+      const date = item.date;
+      const itemDate = new Date(date).getTime();
+
+      if (itemDate > now) {
+        console.warn("Data from the future is not allowed:", item);
+        continue;
+      }
+
+      if (itemDate < twoYearsAgo) {
+        console.warn("Data older than 2 years is not accepted:", item);
+        continue;
+      }
+
+      try {
+        await this.saveToLocalStorage(repoName, date, item);
+      } catch (error) {
+        console.error(`Failed to save data for ${repoName} on ${date}:`, error);
+      }
+    }
+  }
+
   // 키 생성 (repoName + date)
   private getStorageKey(repoName: string, date: string): string {
     return `${this.LOCAL_STORAGE_KEY_PREFIX}${repoName}_${date}`;
