@@ -287,7 +287,7 @@ export class FormController {
     }
 
     this.formView.removeErrorMsg();
-    this.formView.activeFormLoading("Uploading Traffic Data...");
+    this.formView.activeFormLoading("Saving Traffic Data...");
 
     try {
       let data: TrafficData[];

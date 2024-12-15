@@ -39,8 +39,8 @@ export class MainMenuController {
       this.handleDeleteTrafficBtnClick();
     });
 
-    const uploadTrafficBtn = $(".upload-traffic-btn") as HTMLButtonElement;
-    this.mainMenuView.bindEvent(uploadTrafficBtn, "click", () => {
+    const saveTrafficBtn = $(".save-traffic-btn") as HTMLButtonElement;
+    this.mainMenuView.bindEvent(saveTrafficBtn, "click", () => {
       this.handleUploadTrafficBtnClick();
     });
 
