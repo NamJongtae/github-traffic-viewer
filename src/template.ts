@@ -15,6 +15,7 @@ export const mainMenu = `
         <ul>
           <li>GitHub Traffic provides data for only the past <strong>14 days.</strong></li>
           <li>Fetched data is stored to <strong>prevent data loss</strong>.</li>
+          <li>Traffic data can be stored in <strong>JSON, EXCEL, or TXT</strong>.</li>
           <li>You can save data for up to <strong>10 repositories</strong>.</li>
           <li>Stored data will be kept for <strong>up to 2 years</strong> and then automatically deleted.</li>
         </ul>
