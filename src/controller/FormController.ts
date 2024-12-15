@@ -32,8 +32,8 @@ export class FormController {
     this.eventBus.subscribe("initializeDeleteTrafficForm", () => {
       this.initializeDeleteTrafficForm();
     });
-    this.eventBus.subscribe("initializeUploadTrafficForm", () => {
-      this.initializeUploadTrafficForm();
+    this.eventBus.subscribe("initializeSaveTrafficForm", () => {
+      this.initializeSaveTrafficForm();
     });
   }
 
@@ -229,10 +229,10 @@ export class FormController {
     }
   }
 
-  private bindUploadTrafficForm() {
-    const form = $(".upload-traffic-form") as HTMLFormElement;
+  private bindSaveTrafficForm() {
+    const form = $(".save-traffic-form") as HTMLFormElement;
     this.formView.bindEvent(form, "submit", (e) =>
-      this.handleUploadFormSubmit(e)
+      this.handleSaveFormSubmit(e)
     );
 
     const repoNameInput = $("#repo-name") as HTMLInputElement;
@@ -253,11 +253,11 @@ export class FormController {
     );
   }
 
-  private initializeUploadTrafficForm() {
-    this.formView.renderUploadTrafficFrom(() => this.bindUploadTrafficForm());
+  private initializeSaveTrafficForm() {
+    this.formView.renderSaveTrafficFrom(() => this.bindSaveTrafficForm());
   }
 
-  private async handleUploadFormSubmit(e: Event) {
+  private async handleSaveFormSubmit(e: Event) {
     e.preventDefault();
 
     const fileInput = document.getElementById("uploader") as HTMLInputElement;
@@ -268,14 +268,12 @@ export class FormController {
     const repoName = repoNameInput.value.trim();
 
     if (!repoName) {
-      alert("Please enter a repository name.");
-      this.formView.inactiveFormLoading("Upload Traffic Data");
+      this.formView.renderErrorMsg("form", "Please enter a repository name.");
       return;
     }
 
     if (!fileInput.files || fileInput.files.length === 0) {
       this.formView.renderErrorMsg("form", "No file selected.");
-      this.formView.inactiveFormLoading("Upload Traffic Data");
       return;
     }
 
@@ -306,7 +304,7 @@ export class FormController {
         return;
       }
 
-      await this.localStorageModel.saveUploadedTrafficData(repoName, data);
+      await this.localStorageModel.saveTrafficData(repoName, data);
       alert(
         `Data has been successfully uploaded and stored for "${repoName}".`
       );
@@ -317,8 +315,8 @@ export class FormController {
         "Failed to upload and process the file."
       );
     } finally {
-      this.formView.inactiveFormLoading("Upload Traffic Data");
-      this.formView.resetUplaodForm();
+      this.formView.inactiveFormLoading("Save Traffic Data");
+      this.formView.resetSaveForm();
     }
   }
 
@@ -326,7 +324,7 @@ export class FormController {
     this.formView.removeElement(".get-traffic-form");
     this.formView.removeElement(".load-traffic-form");
     this.formView.removeElement(".delete-traffic-form");
-    this.formView.removeElement(".upload-traffic-form");
+    this.formView.removeElement(".save-traffic-form");
     this.formView.removeElement(".result");
     this.eventBus.publish("initializeMainMenu");
   }

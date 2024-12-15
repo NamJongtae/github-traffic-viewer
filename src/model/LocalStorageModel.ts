@@ -180,7 +180,7 @@ export class LocalStorageModel {
     });
   }
 
-  async saveUploadedTrafficData(
+  async saveTrafficData(
     repoName: string,
     data: TrafficData[]
   ): Promise<void> {

@@ -8,7 +8,7 @@ export type FormControllerEvents = {
   initializeGetTrafficForm: () => void;
   initializeLoadTrafficForm: () => void;
   initializeDeleteTrafficForm: () => void;
-  initializeUploadTrafficForm: () => void;
+  initializeSaveTrafficForm: () => void;
 };
 
 export type ResultControllerEvents = {

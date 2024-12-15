@@ -71,6 +71,6 @@ export class MainMenuController {
   }
 
   private handleUploadTrafficBtnClick() {
-    this.eventBus.publish("initializeUploadTrafficForm");
+    this.eventBus.publish("initializeSaveTrafficForm");
   }
 }

@@ -3,7 +3,7 @@ import {
   deleteTrafficForm,
   getTrafficForm,
   loadTrafficForm,
-  uploadTrafficForm,
+  saveTrafficForm,
 } from "../template";
 import { $ } from "../utils";
 
@@ -26,9 +26,9 @@ export class FormView extends BaseView {
     bindEvent();
   }
 
-  renderUploadTrafficFrom(bindEvents: () => void) {
+  renderSaveTrafficFrom(bindEvents: () => void) {
     this.removeElement(".main-menu");
-    $("header")!.insertAdjacentHTML("afterend", uploadTrafficForm);
+    $("header")!.insertAdjacentHTML("afterend", saveTrafficForm);
     bindEvents();
   }
 
@@ -62,9 +62,9 @@ export class FormView extends BaseView {
     repoSelector.value = repoSelector.options[0].value;
   }
 
-  resetUplaodForm() {
-    const uploadForm = $(".upload-traffic-form") as HTMLFormElement;
-    uploadForm.reset();
+  resetSaveForm() {
+    const saveTrafficForm = $(".save-traffic-form") as HTMLFormElement;
+    saveTrafficForm.reset();
     const clearBtn = $(".clear-btn") as HTMLButtonElement;
     clearBtn.style.display = "none";
   }
