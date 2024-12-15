@@ -27,6 +27,7 @@ export const mainMenu = `
         <button class="root-btn get-traffic-btn">Get New Traffic Data</button>
         <button class="root-btn load-traffic-btn">Load To Stored Traffic Data</button>
         <button class="root-btn delete-traffic-btn">Delete Stored Traffic Data</button>
+        <button class="root-btn upload-traffic-btn">Upload Traffic Data</button>
         <button class="root-btn docs-btn">Go To Docs</button>
       </div>
     </div>
@@ -78,6 +79,24 @@ export const deleteTrafficForm = `
         <option value="" disabled selected>Select Repository</option>
       </select>
     <button type="submit" class="root-btn submit-btn">Delete Stored Traffic Data</button>
+    <button type="button" class="root-btn back-btn">Back</button>
+  </form>
+`;
+
+export const uploadTrafficForm = `
+  <form class="upload-traffic-form">
+    <label for="repo-name">Repository Name</label>
+      <div class="input-group">
+        <input type="text" id="repo-name" required />
+        <button type="button" class="clear-btn" data-input="#repo-name">
+          <img src="src/public/icons/x_icon.png" alt="reset" />
+        </button>
+      </div>
+
+    <label for="repo-name">Upload File</label>
+    <input type="file" id="uploader" accept=".xlsx, .xls, .txt, .json" />
+    
+    <button type="submit" class="root-btn submit-btn">Upload Traffic Data</button>
     <button type="button" class="root-btn back-btn">Back</button>
   </form>
 `;
