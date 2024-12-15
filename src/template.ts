@@ -83,8 +83,8 @@ export const deleteTrafficForm = `
   </form>
 `;
 
-export const uploadTrafficForm = `
-  <form class="upload-traffic-form">
+export const saveTrafficForm = `
+  <form class="save-traffic-form">
     <label for="repo-name">Repository Name</label>
       <div class="input-group">
         <input type="text" id="repo-name" required />
@@ -96,7 +96,7 @@ export const uploadTrafficForm = `
     <label for="repo-name">Upload File</label>
     <input type="file" id="uploader" accept=".xlsx, .xls, .txt, .json" />
     
-    <button type="submit" class="root-btn submit-btn">Upload Traffic Data</button>
+    <button type="submit" class="root-btn submit-btn">Save Traffic Data</button>
     <button type="button" class="root-btn back-btn">Back</button>
   </form>
 `;
