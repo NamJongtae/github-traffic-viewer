@@ -1,7 +1,7 @@
 .get-traffic-form,
 .load-traffic-form,
 .delete-traffic-form,
-.upload-traffic-form {
+.save-traffic-form {
   position: relative;
   height: calc(100vh - 112px);
   display: flex;
@@ -11,7 +11,7 @@
 .get-traffic-form label,
 .load-traffic-form label,
 .delete-traffic-form label,
-.upload-traffic-form label {
+.save-traffic-form label {
   font-size: 12px;
   margin: 10px 0 5px;
 }
@@ -19,7 +19,7 @@
 .get-traffic-form input,
 .load-traffic-form input,
 .delete-traffic-form input,
-.upload-traffic-form input {
+.save-traffic-form input {
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
@@ -28,7 +28,7 @@
 .get-traffic-form button,
 .load-traffic-form button,
 .delete-traffic-form button,
-.upload-traffic-form button {
+.save-traffic-form button {
   position: absolute;
   width: 100%;
 }
