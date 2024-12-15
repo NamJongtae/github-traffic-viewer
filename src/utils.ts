@@ -168,10 +168,19 @@ export async function readTxtFile(file: File): Promise<any[]> {
 
         for (const line of blocks) {
           currentObject += line;
-          if (line === "}") {
-            // 객체 종료 시점
-            jsonData.push(JSON.parse(currentObject));
-            currentObject = "";
+
+          try {
+            // 객체가 완전하면 즉시 파싱
+            const parsedObject = JSON.parse(currentObject);
+            jsonData.push(parsedObject);
+            currentObject = ""; // 초기화
+          } catch (err) {
+            // JSON 파싱 실패: 아직 완성되지 않은 JSON 블록일 가능성
+            if (!line.endsWith("}")) {
+              continue; // 블록 계속 누적
+            }
+            // 잘못된 JSON 구조
+            throw new Error(`Invalid JSON format in block: ${currentObject}`);
           }
         }
 
@@ -188,3 +197,4 @@ export async function readTxtFile(file: File): Promise<any[]> {
     reader.readAsText(file);
   });
 }
+
