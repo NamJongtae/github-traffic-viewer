@@ -104,6 +104,7 @@ export class FormController {
       );
 
       await Promise.all(savePromises);
+      await this.localStorageModel.addRepoToList(repoName);
 
       this.eventBus.publish("initializeResult", mergedData, repoName);
     } catch (error: unknown) {
