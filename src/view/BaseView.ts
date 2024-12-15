@@ -12,20 +12,22 @@ export class BaseView {
     this.rootEl.innerHTML = layout;
   }
 
-  renderErrorMsg(
-    targetSelector: string,
-    message: string,
-    type: "form" | "filter" = "form"
-  ) {
+  renderErrorMsg(type: "form" | "filter", message: string) {
     const errorEl = $(".error-msg") as HTMLParagraphElement;
     if (errorEl) {
       errorEl.innerText = message;
-    } else {
-      $(targetSelector)!.insertAdjacentHTML(
+      return;
+    }
+
+    if (type === "form") {
+      $(".input-group:last-of-type")!.insertAdjacentHTML(
         "afterend",
-        `<p class=${
-          type === "filter" ? "filter-error-msg" : "error-msg"
-        }>${message}</p>`
+        `<p class=error-msg>${message}</p>`
+      );
+    } else {
+      $(".filters")!.insertAdjacentHTML(
+        "afterend",
+        `<p class=filter-error-msg>${message}</p>`
       );
     }
   }
