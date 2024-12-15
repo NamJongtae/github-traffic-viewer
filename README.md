@@ -22,7 +22,7 @@ Since GitHub's traffic data is **only retained for 2 weeks**, this extension **p
 - Data can be displayed in **table or chart** format.
 - The retrieved data can be filtered by **date format** and sorted by **oldest, newest, views, or unique visitors**.
 - Provide options to download the retrieved data in **JSON, EXCEL, and TXT** formats.
-- Traffic data in **JSON, EXCEL, or TXT** format can be uploaded and stored.
+- Traffic data in **JSON, EXCEL, or TXT** format can be stored.
 - Fetched data is stored to **prevent data loss**.
 - You can save data for **up to 10 repositories**.
 - Stored data will be kept for **up to 2 years** and then automatically deleted.
@@ -61,15 +61,15 @@ You can download [GitHub Traffic Viewer](https://chromewebstore.google.com/detai
 2. Select the repository you want to delete and click the Delete Stored Traffic Data button.
 3. A confirmation message will appear once the data has been successfully deleted.
 
-### Upload and Store Traffic Data
+### Store Traffic Data
 
-1. Click on the **Upload Traffic Data** menu.
-2. Select the repository name and the file to upload (.xlsx, .xls, .json, .txt).
+1. Click on the **Save Traffic Data** menu.
+2. Select the repository name and the file(.xlsx, .xls, .json, .txt).
 3. Once the upload is complete, a confirmation message will appear.
 
-**Structure of Upload Files**
+**Saved File Data Structure**
 
-The structure of the upload file must match the structure of the downloaded traffic data.
+The structure of the file to be saved must match the downloaded traffic data structure.
 <br/>
 (For `.json` and `.txt` files, whitespace and indentation do not need to match.)
 
