@@ -65,7 +65,7 @@ export class FormController {
     const githubId = ($("#github-username") as HTMLInputElement).value;
     const githubToken = ($("#github-token") as HTMLInputElement).value;
     const repoName = ($("#repo-name") as HTMLInputElement).value;
-    
+
     this.formView.removeErrorMsg();
     this.formView.activeFormLoading("Loading Traffic Data...");
 
@@ -99,7 +99,7 @@ export class FormController {
     } catch (error: unknown) {
       if (error instanceof Error) {
         const message = generateFormErrorMsg(error);
-        this.formView.renderErrorMsg(".back-btn", message);
+        this.formView.renderErrorMsg("form", message);
       }
     } finally {
       this.formView.inactiveFormLoading("Get Traffic Data");
@@ -137,7 +137,7 @@ export class FormController {
 
       if (data.length === 0) {
         this.formView.renderErrorMsg(
-          ".back-btn",
+          "form",
           "The saved traffic data for this repository does not exist."
         );
         return;
@@ -147,7 +147,7 @@ export class FormController {
       this.eventBus.publish("initializeResult", data, repoName);
     } catch (error) {
       if (error instanceof Error) {
-        this.formView.renderErrorMsg(".back-btn", error.message);
+        this.formView.renderErrorMsg("form", error.message);
       }
     } finally {
       this.formView.inactiveFormLoading("Load Storage Data");
@@ -203,10 +203,10 @@ export class FormController {
       this.loadRepoListAndCreateOptions();
     } catch (error) {
       if (error instanceof Error) {
-        this.formView.renderErrorMsg(".back-btn", error.message);
+        this.formView.renderErrorMsg("form", error.message);
       }
     } finally {
-      this.formView.inactiveFormLoading("Delete Storage Data")
+      this.formView.inactiveFormLoading("Delete Storage Data");
     }
   }
 

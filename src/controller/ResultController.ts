@@ -101,9 +101,8 @@ export class ResultController {
 
     if (!isValidDate) {
       this.resultView.renderErrorMsg(
-        ".filters",
-        "Start Date cannot be later than End Date.",
-        "filter"
+        "filter",
+        "Start Date cannot be later than End Date."
       );
       this.resultView.clearTrafficSummary();
       this.resultView.removeTrafficTable();
