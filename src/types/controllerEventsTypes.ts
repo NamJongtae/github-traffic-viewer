@@ -7,7 +7,8 @@ export type MainMenuControllerEvents = {
 export type FormControllerEvents = {
   initializeGetTrafficForm: () => void;
   initializeLoadTrafficForm: () => void;
-  initializeDeleteTrafficForm: ()=> void;
+  initializeDeleteTrafficForm: () => void;
+  initializeUploadTrafficForm: () => void;
 };
 
 export type ResultControllerEvents = {
