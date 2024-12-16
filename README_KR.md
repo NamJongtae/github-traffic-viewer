@@ -6,6 +6,10 @@
 
 ## 소개
 
+<div align="center">
+   <img src="https://github.com/user-attachments/assets/7958ed14-f0ee-44ce-ba33-efd9e819665b" alt="thumbnail" width=800/>
+</div>
+
 GitHub API를 활용하여 저장소의 트래픽 통계를 가져오고 표시하는 Chrome 확장 프로그램입니다. 이 프로그램은 **조회수**와 **고유 방문자 수**에 대한 유용한 통찰을 제공합니다.
 
 GitHub의 트래픽 데이터는 **2주간만 보존**되기 때문에, 이 확장 프로그램은 **데이터 손실을 방지하고 과거 통계를 안전하게 저장**합니다. 이를 통해 장기적인 트렌드를 분석하고 저장소 성능에 대한 더 깊은 통찰을 얻을 수 있습니다.
