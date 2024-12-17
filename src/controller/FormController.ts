@@ -261,7 +261,7 @@ export class FormController {
   private async handleSaveFormSubmit(e: Event) {
     e.preventDefault();
 
-    const fileInput = document.getElementById("uploader") as HTMLInputElement;
+    const fileInput = $("#traffic-file") as HTMLInputElement;
     const repoNameInput = document.getElementById(
       "repo-name"
     ) as HTMLInputElement;
