@@ -94,9 +94,9 @@ export const saveTrafficForm = `
         </button>
       </div>
 
-    <label for="repo-name">Upload File</label>
+    <label for="traffic-file">Select File</label>
     <div class="input-group">
-      <input type="file" id="uploader" accept=".xlsx, .xls, .txt, .json" required/>
+      <input type="file" id="traffic-file" accept=".xlsx, .xls, .txt, .json" required/>
     </div>
     
     <button type="submit" class="root-btn submit-btn">Save Traffic Data</button>
