@@ -1,8 +1,9 @@
 {
   "manifest_version": 3,
   "name": "GitHub Traffic Viewer",
-  "version": "1.2.0",
-  "description": "Displays traffic data for a GitHub repository",
+  "short_name": "Git Traffic",
+  "version": "1.2.1",
+  "description": "Analyze and display detailed GitHub repository traffic stats, including views and unique visitors.",
   "permissions": ["storage", "alarms"],
   "host_permissions": ["https://api.github.com/*"],
   "background": {
@@ -16,5 +17,12 @@
       "48": "src/public/icons/logo_icon_48.png",
       "128": "src/public/icons/logo_icon_128.png"
     }
-  }
+  },
+  "icons": {
+    "16": "src/public/icons/logo_icon_16.png",
+    "32": "src/public/icons/logo_icon_32.png",
+    "48": "src/public/icons/logo_icon_48.png",
+    "128": "src/public/icons/logo_icon_128.png"
+  },
+  "author": "dark9737@gmail.com"
 }
