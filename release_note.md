@@ -16,3 +16,10 @@
   아이콘 수정 및 추가.
 - Correct the incorrect description in the main menu (20 repositories → 10 repositories).
   메인메뉴에 잘못된 설명 수정 (20개의 레포지토리 → 10개의 레포지토리).
+
+## v1.2.0 - [2024.12.17]
+### Added
+- Add data upload and storage functionality.
+  데이터 업로드 및 저장 기능 추가.
+- Fixed an issue where lastUpdated was not being updated when querying traffic data.
+  traffic 데이터 조회 시 lastUpdated가 업데이트 되지 않는 문제 해결.
