@@ -23,3 +23,10 @@
   데이터 업로드 및 저장 기능 추가.
 - Fixed an issue where lastUpdated was not being updated when querying traffic data.
   traffic 데이터 조회 시 lastUpdated가 업데이트 되지 않는 문제 해결.
+
+## v1.2.1 - [2024.12.18]
+### Added
+- Added icons.
+  아이콘 추가.
+- Adjusted result height.
+  결과창 높이 수정.
