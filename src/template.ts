@@ -4,7 +4,8 @@ export const layout = `
   </header>
 
     <footer>
-        <p class="source-link">Data provided by <a href="https://api.github.com" target="_blank">GitHub API</a></p>
+        <p>© 2024 Git Traffic Viewer. All Rights Reserved.</p>
+        <p class="footer-link">Data provided by <a href="https://api.github.com" target="_blank">GitHub API</a></p>
     </footer>
 `;
 
