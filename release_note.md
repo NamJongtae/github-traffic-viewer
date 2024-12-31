@@ -30,3 +30,8 @@
   아이콘 추가.
 - Adjusted result height.
   결과창 높이 수정.
+
+## v1.2.2 - [2024.12.30]
+### Added
+- Copyright Notice Added.
+  저작권 표시 추가.
